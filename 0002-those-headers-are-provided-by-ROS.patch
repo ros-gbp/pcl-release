@@ -1,0 +1,298 @@
+From 6a157761a86ac67c362907f1ee1ffec4a958602b Mon Sep 17 00:00:00 2001
+From: Vincent Rabaud <vrabaud@willowgarage.com>
+Date: Sun, 11 Nov 2012 00:12:28 -0800
+Subject: [PATCH 2/3] those headers are provided by ROS
+
+---
+ common/include/sensor_msgs/Image.h       |   61 ------------------
+ common/include/sensor_msgs/PointCloud2.h |  101 ------------------------------
+ common/include/sensor_msgs/PointField.h  |   54 ----------------
+ common/include/std_msgs/Header.h         |   39 ------------
+ 4 files changed, 255 deletions(-)
+ delete mode 100644 common/include/sensor_msgs/Image.h
+ delete mode 100644 common/include/sensor_msgs/PointCloud2.h
+ delete mode 100644 common/include/sensor_msgs/PointField.h
+ delete mode 100644 common/include/std_msgs/Header.h
+
+diff --git a/common/include/sensor_msgs/Image.h b/common/include/sensor_msgs/Image.h
+deleted file mode 100644
+index 6f488d7..0000000
+--- a/common/include/sensor_msgs/Image.h
++++ /dev/null
+@@ -1,61 +0,0 @@
+-#ifndef PCL_MESSAGE_IMAGE_H
+-#define PCL_MESSAGE_IMAGE_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-
+-// Include the correct Header path here
+-#include "std_msgs/Header.h"
+-
+-namespace sensor_msgs
+-{
+-  struct Image
+-  {
+-    Image () : header (), height (0), width (0), encoding (), 
+-               is_bigendian (0), step (0), data ()
+-    {}
+-
+-     ::std_msgs::Header  header;
+-
+-    pcl::uint32_t height;
+-    pcl::uint32_t width;
+-    std::string encoding;
+-
+-    pcl::uint8_t is_bigendian;
+-    pcl::uint32_t step;
+-
+-    std::vector<pcl::uint8_t> data;
+-
+-    typedef boost::shared_ptr< ::sensor_msgs::Image> Ptr;
+-    typedef boost::shared_ptr< ::sensor_msgs::Image  const> ConstPtr;
+-  }; // struct Image
+-
+-  typedef boost::shared_ptr< ::sensor_msgs::Image> ImagePtr;
+-  typedef boost::shared_ptr< ::sensor_msgs::Image const> ImageConstPtr;
+-
+-  inline std::ostream& operator<<(std::ostream& s, const  ::sensor_msgs::Image & v)
+-  {
+-    s << "header: " << std::endl;
+-    s << v.header;
+-    s << "height: ";
+-    s << "  " << v.height << std::endl;
+-    s << "width: ";
+-    s << "  " << v.width << std::endl;
+-    s << "encoding: ";
+-    s << "  " << v.encoding << std::endl;
+-    s << "is_bigendian: ";
+-    s << "  " << v.is_bigendian << std::endl;
+-    s << "step: ";
+-    s << "  " << v.step << std::endl;
+-    s << "data[]" << std::endl;
+-    for (size_t i = 0; i < v.data.size (); ++i)
+-    {
+-      s << "  data[" << i << "]: ";
+-      s << "  " << v.data[i] << std::endl;
+-    }
+-    return (s);
+-  }
+-} // namespace sensor_msgs
+-
+-#endif // PCL_MESSAGE_IMAGE_H
+-
+diff --git a/common/include/sensor_msgs/PointCloud2.h b/common/include/sensor_msgs/PointCloud2.h
+deleted file mode 100644
+index 82f1e4e..0000000
+--- a/common/include/sensor_msgs/PointCloud2.h
++++ /dev/null
+@@ -1,101 +0,0 @@
+-#ifndef PCL_SENSOR_MSGS_MESSAGE_POINTCLOUD2_H
+-#define PCL_SENSOR_MSGS_MESSAGE_POINTCLOUD2_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-
+-// Include the correct Header path here
+-#include "std_msgs/Header.h"
+-#include "sensor_msgs/PointField.h"
+-
+-namespace sensor_msgs
+-{
+-
+-#if (defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) || defined(_M_PPC) || defined(__ARCH_PPC))
+-#  define PCL_BIG_ENDIAN
+-#elif (defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)) \
+-  || (defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64) || defined(_M_X64)) \
+-	|| (defined(__ANDROID__))
+-#  define PCL_LITTLE_ENDIAN
+-#else
+-#  error
+-#endif
+-
+-  struct PointCloud2
+-  {
+-    PointCloud2 () : header (), height (0), width (0), fields (),
+-                     is_bigendian (false), point_step (0), row_step (0),
+-                     data (), is_dense (false)
+-    {
+-#ifdef PCL_BIG_ENDIAN
+-      is_bigendian = true;
+-#elif defined(PCL_LITTLE_ENDIAN)
+-      is_bigendian = false;
+-#else
+-#      error
+-#endif
+-    }
+-
+-#undef PCL_BIG_ENDIAN
+-#undef PCL_LITTLE_ENDIAN
+-
+-    ::std_msgs::Header header;
+-
+-    pcl::uint32_t height;
+-    pcl::uint32_t width;
+-
+-    std::vector< ::sensor_msgs::PointField>  fields;
+-
+-    pcl::uint8_t is_bigendian;
+-    pcl::uint32_t point_step;
+-    pcl::uint32_t row_step;
+-
+-    std::vector<pcl::uint8_t> data;
+-
+-    pcl::uint8_t is_dense;
+-
+-  public:
+-    typedef boost::shared_ptr< ::sensor_msgs::PointCloud2> Ptr;
+-    typedef boost::shared_ptr< ::sensor_msgs::PointCloud2  const> ConstPtr;
+-  }; // struct PointCloud2
+-
+-  typedef boost::shared_ptr< ::sensor_msgs::PointCloud2> PointCloud2Ptr;
+-  typedef boost::shared_ptr< ::sensor_msgs::PointCloud2 const> PointCloud2ConstPtr;
+-
+-  inline std::ostream& operator<<(std::ostream& s, const  ::sensor_msgs::PointCloud2 &v)
+-  {
+-    s << "header: " << std::endl;
+-    s << v.header;
+-    s << "height: ";
+-    s << "  " << v.height << std::endl;
+-    s << "width: ";
+-    s << "  " << v.width << std::endl;
+-    s << "fields[]" << std::endl;
+-    for (size_t i = 0; i < v.fields.size (); ++i)
+-    {
+-      s << "  fields[" << i << "]: ";
+-      s << std::endl;
+-      s << "    " << v.fields[i] << std::endl;
+-    }
+-    s << "is_bigendian: ";
+-    s << "  " << v.is_bigendian << std::endl;
+-    s << "point_step: ";
+-    s << "  " << v.point_step << std::endl;
+-    s << "row_step: ";
+-    s << "  " << v.row_step << std::endl;
+-    s << "data[]" << std::endl;
+-    for (size_t i = 0; i < v.data.size (); ++i)
+-    {
+-      s << "  data[" << i << "]: ";
+-      s << "  " << v.data[i] << std::endl;
+-    }
+-    s << "is_dense: ";
+-    s << "  " << v.is_dense << std::endl;
+-    
+-    return (s);
+-  }
+-
+-} // namespace sensor_msgs
+-
+-#endif // PCL_SENSOR_MSGS_MESSAGE_POINTCLOUD2_H
+-
+diff --git a/common/include/sensor_msgs/PointField.h b/common/include/sensor_msgs/PointField.h
+deleted file mode 100644
+index 64abde1..0000000
+--- a/common/include/sensor_msgs/PointField.h
++++ /dev/null
+@@ -1,54 +0,0 @@
+-#ifndef PCL_SENSOR_MSGS_MESSAGE_POINTFIELD_H
+-#define PCL_SENSOR_MSGS_MESSAGE_POINTFIELD_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-#include <boost/shared_ptr.hpp>
+-#include <pcl/pcl_macros.h>
+-
+-namespace sensor_msgs
+-{
+-  struct PointField
+-  {
+-    PointField () : name (), offset (0), datatype (0), count (0)
+-    {}
+-
+-    std::string name;
+-
+-    pcl::uint32_t offset;
+-    pcl::uint8_t datatype;
+-    pcl::uint32_t count;
+-
+-    enum { INT8 = 1 };
+-    enum { UINT8 = 2 };
+-    enum { INT16 = 3 };
+-    enum { UINT16 = 4 };
+-    enum { INT32 = 5 };
+-    enum { UINT32 = 6 };
+-    enum { FLOAT32 = 7 };
+-    enum { FLOAT64 = 8 };
+-
+-  public:
+-    typedef boost::shared_ptr< ::sensor_msgs::PointField> Ptr;
+-    typedef boost::shared_ptr< ::sensor_msgs::PointField const> ConstPtr;
+-  }; // struct PointField
+-
+-  typedef boost::shared_ptr< ::sensor_msgs::PointField> PointFieldPtr;
+-  typedef boost::shared_ptr< ::sensor_msgs::PointField const> PointFieldConstPtr;
+-
+-  inline std::ostream& operator<<(std::ostream& s, const  ::sensor_msgs::PointField & v)
+-  {
+-    s << "name: ";
+-    s << "  " << v.name << std::endl;
+-    s << "offset: ";
+-    s << "  " << v.offset << std::endl;
+-    s << "datatype: ";
+-    s << "  " << v.datatype << std::endl;
+-    s << "count: ";
+-    s << "  " << v.count << std::endl;
+-    return (s);
+-  }
+-} // namespace sensor_msgs
+-
+-#endif // PCL_SENSOR_MSGS_MESSAGE_POINTFIELD_H
+-
+diff --git a/common/include/std_msgs/Header.h b/common/include/std_msgs/Header.h
+deleted file mode 100644
+index 19b18af..0000000
+--- a/common/include/std_msgs/Header.h
++++ /dev/null
+@@ -1,39 +0,0 @@
+-#ifndef PCL_ROSLIB_MESSAGE_HEADER_H
+-#define PCL_ROSLIB_MESSAGE_HEADER_H
+-#include <string>
+-#include <vector>
+-#include <boost/shared_ptr.hpp>
+-#include <pcl/pcl_macros.h>
+-#include <ostream>
+-
+-namespace std_msgs
+-{
+-  struct Header
+-  {
+-    Header (): seq (0), stamp (), frame_id ()
+-    {}
+-
+-    pcl::uint32_t seq;
+-    pcl::uint64_t stamp;
+-
+-    std::string frame_id;
+-
+-    typedef boost::shared_ptr<Header> Ptr;
+-    typedef boost::shared_ptr<Header const> ConstPtr;
+-  }; // struct Header
+-
+-  typedef boost::shared_ptr<Header> HeaderPtr;
+-  typedef boost::shared_ptr<Header const> HeaderConstPtr;
+-
+-  inline std::ostream& operator << (std::ostream& out, const Header &h)
+-  {
+-    out << "seq: " << h.seq;
+-    out << " stamp: " << h.stamp;
+-    out << " frame_id: " << h.frame_id << std::endl;
+-    return (out);
+-  }
+-
+-} // namespace std_msgs
+-
+-#endif // PCL_ROSLIB_MESSAGE_HEADER_H
+-
+-- 
+1.7.9.5
+

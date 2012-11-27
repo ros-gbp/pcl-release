@@ -1,0 +1,1407 @@
+From ea860a07225eeab6f261bdaa5d98b0f9671cd6b1 Mon Sep 17 00:00:00 2001
+From: William Woodall <wjwwood@gmail.com>
+Date: Sat, 10 Nov 2012 23:45:14 -0800
+Subject: [PATCH 1/3] Patches to upstream for Groovy ROS
+
+---
+ CMakeLists.txt                         |    4 +
+ cmake/pcl_find_ros.cmake               |    6 +-
+ common/CMakeLists.txt                  |    8 +
+ common/include/pcl/ModelCoefficients.h |  300 +++++++++++++++++++++----
+ common/include/pcl/PointIndices.h      |  298 +++++++++++++++++++++----
+ common/include/pcl/PolygonMesh.h       |  376 +++++++++++++++++++++++++++-----
+ common/include/pcl/Vertices.h          |  267 +++++++++++++++++++----
+ package.xml                            |   56 +++++
+ 8 files changed, 1127 insertions(+), 188 deletions(-)
+ rewrite common/include/pcl/ModelCoefficients.h (78%)
+ rewrite common/include/pcl/PointIndices.h (80%)
+ rewrite common/include/pcl/PolygonMesh.h (82%)
+ rewrite common/include/pcl/Vertices.h (79%)
+ create mode 100644 package.xml
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8a735bc..3b77bf5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,6 +6,10 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "build type default to RelWithDebInfo, set to Release to improve performance" FORCE)
+ endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
+ 
++project(pcl)
++find_package(catkin)
++catkin_package()
++
+ project(PCL)
+ string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
+ 
+diff --git a/cmake/pcl_find_ros.cmake b/cmake/pcl_find_ros.cmake
+index 9e4fd3b..be48b1d 100644
+--- a/cmake/pcl_find_ros.cmake
++++ b/cmake/pcl_find_ros.cmake
+@@ -23,8 +23,8 @@ macro(get_ros_inc_path _dest _pkg)
+ endmacro(get_ros_inc_path)
+ 
+ #todo: do we really need the next two lines? 
+-set(ROS_ROOT $ENV{ROS_ROOT})
+-if(ROS_ROOT)
++#set(ROS_ROOT $ENV{ROS_ROOT})
++#if(ROS_ROOT)
+     option(USE_ROS "Integrate with ROS rather than using native files" OFF)
+     message(STATUS "Found ROS; USE_ROS is ${USE_ROS}")
+     if(USE_ROS)
+@@ -64,5 +64,5 @@ if(ROS_ROOT)
+         SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+ 
+     endif(USE_ROS)
+-endif(ROS_ROOT)
++#endif(ROS_ROOT)
+ 
+diff --git a/common/CMakeLists.txt b/common/CMakeLists.txt
+index ac6a9d7..fdd3403 100644
+--- a/common/CMakeLists.txt
++++ b/common/CMakeLists.txt
+@@ -57,6 +57,14 @@ if(build)
+         include/pcl/pcl_tests.h
+         )
+         
++        set(incs ${incs}
++          include/pcl/ModelCoefficients.h
++          include/pcl/PolygonMesh.h
++          include/pcl/Vertices.h
++          include/pcl/PointIndices.h
++          include/pcl/TextureMesh.h
++          )
++
+     if(NOT USE_ROS)
+         set(incs ${incs}
+           include/pcl/ModelCoefficients.h
+diff --git a/common/include/pcl/ModelCoefficients.h b/common/include/pcl/ModelCoefficients.h
+dissimilarity index 78%
+index f052179..2fe0da9 100644
+--- a/common/include/pcl/ModelCoefficients.h
++++ b/common/include/pcl/ModelCoefficients.h
+@@ -1,46 +1,254 @@
+-#ifndef PCL_MESSAGE_MODELCOEFFICIENTS_H
+-#define PCL_MESSAGE_MODELCOEFFICIENTS_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-
+-// Include the correct Header path here
+-#include "std_msgs/Header.h"
+-
+-namespace pcl
+-{
+-  struct ModelCoefficients
+-  {
+-    ModelCoefficients () : header (), values ()
+-    {
+-    }
+-
+-    ::std_msgs::Header header;
+-
+-    std::vector<float> values;
+-
+-  public:
+-    typedef boost::shared_ptr< ::pcl::ModelCoefficients> Ptr;
+-    typedef boost::shared_ptr< ::pcl::ModelCoefficients  const> ConstPtr;
+-  }; // struct ModelCoefficients
+-
+-  typedef boost::shared_ptr< ::pcl::ModelCoefficients> ModelCoefficientsPtr;
+-  typedef boost::shared_ptr< ::pcl::ModelCoefficients const> ModelCoefficientsConstPtr;
+-
+-  inline std::ostream& operator<<(std::ostream& s, const  ::pcl::ModelCoefficients & v)
+-  {
+-    s << "header: " << std::endl;
+-    s << v.header;
+-    s << "values[]" << std::endl;
+-    for (size_t i = 0; i < v.values.size (); ++i)
+-    {
+-      s << "  values[" << i << "]: ";
+-      s << "  " << v.values[i] << std::endl;
+-    }
+-    return (s);
+-  }
+-
+-} // namespace pcl
+-
+-#endif // PCL_MESSAGE_MODELCOEFFICIENTS_H
+-
++/* Software License Agreement (BSD License)
++ *
++ * Copyright (c) 2011, Willow Garage, Inc.
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above
++ *    copyright notice, this list of conditions and the following
++ *    disclaimer in the documentation and/or other materials provided
++ *    with the distribution.
++ *  * Neither the name of Willow Garage, Inc. nor the names of its
++ *    contributors may be used to endorse or promote products derived
++ *    from this software without specific prior written permission.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
++ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ *
++ * Auto-generated by genmsg_cpp from file /u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg/ModelCoefficients.msg
++ *
++ */
++
++
++#ifndef PCL_MESSAGE_MODELCOEFFICIENTS_H
++#define PCL_MESSAGE_MODELCOEFFICIENTS_H
++
++
++#include <string>
++#include <vector>
++#include <map>
++
++#include <ros/types.h>
++#include <ros/serialization.h>
++#include <ros/builtin_message_traits.h>
++#include <ros/message_operations.h>
++
++#include <std_msgs/Header.h>
++
++namespace pcl
++{
++template <class ContainerAllocator>
++struct ModelCoefficients_
++{
++  typedef ModelCoefficients_<ContainerAllocator> Type;
++
++  ModelCoefficients_()
++    : header()
++    , values()  {
++    }
++  ModelCoefficients_(const ContainerAllocator& _alloc)
++    : header(_alloc)
++    , values(_alloc)  {
++    }
++
++
++
++   typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
++  _header_type header;
++
++   typedef std::vector<float, typename ContainerAllocator::template rebind<float>::other >  _values_type;
++  _values_type values;
++
++
++
++
++  typedef boost::shared_ptr< ::pcl::ModelCoefficients_<ContainerAllocator> > Ptr;
++  typedef boost::shared_ptr< ::pcl::ModelCoefficients_<ContainerAllocator> const> ConstPtr;
++  boost::shared_ptr<std::map<std::string, std::string> > __connection_header;
++
++}; // struct ModelCoefficients_
++
++typedef ::pcl::ModelCoefficients_<std::allocator<void> > ModelCoefficients;
++
++typedef boost::shared_ptr< ::pcl::ModelCoefficients > ModelCoefficientsPtr;
++typedef boost::shared_ptr< ::pcl::ModelCoefficients const> ModelCoefficientsConstPtr;
++
++// constants requiring out of line definition
++
++
++
++template<typename ContainerAllocator>
++std::ostream& operator<<(std::ostream& s, const ::pcl::ModelCoefficients_<ContainerAllocator> & v)
++{
++ros::message_operations::Printer< ::pcl::ModelCoefficients_<ContainerAllocator> >::stream(s, "", v);
++return s;
++}
++
++} // namespace pcl
++
++namespace ros
++{
++namespace message_traits
++{
++
++
++
++// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
++// {'std_msgs': ['/opt/ros/groovy/share/std_msgs/msg'], 'sensor_msgs': ['/opt/ros/groovy/share/sensor_msgs/msg'], 'pcl': ['/u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg']}
++
++// !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
++
++
++
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::ModelCoefficients_<ContainerAllocator> >
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::ModelCoefficients_<ContainerAllocator> const>
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::ModelCoefficients_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::ModelCoefficients_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::ModelCoefficients_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::ModelCoefficients_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++
++template<class ContainerAllocator>
++struct MD5Sum< ::pcl::ModelCoefficients_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "ca27dea75e72cb894cd36f9e5005e93e";
++  }
++
++  static const char* value(const ::pcl::ModelCoefficients_<ContainerAllocator>&) { return value(); }
++  static const uint64_t static_value1 = 0xca27dea75e72cb89ULL;
++  static const uint64_t static_value2 = 0x4cd36f9e5005e93eULL;
++};
++
++template<class ContainerAllocator>
++struct DataType< ::pcl::ModelCoefficients_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "pcl/ModelCoefficients";
++  }
++
++  static const char* value(const ::pcl::ModelCoefficients_<ContainerAllocator>&) { return value(); }
++};
++
++template<class ContainerAllocator>
++struct Definition< ::pcl::ModelCoefficients_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "Header header\n\
++float32[] values\n\
++\n\
++\n\
++================================================================================\n\
++MSG: std_msgs/Header\n\
++# Standard metadata for higher-level stamped data types.\n\
++# This is generally used to communicate timestamped data \n\
++# in a particular coordinate frame.\n\
++# \n\
++# sequence ID: consecutively increasing ID \n\
++uint32 seq\n\
++#Two-integer timestamp that is expressed as:\n\
++# * stamp.secs: seconds (stamp_secs) since epoch\n\
++# * stamp.nsecs: nanoseconds since stamp_secs\n\
++# time-handling sugar is provided by the client library\n\
++time stamp\n\
++#Frame this data is associated with\n\
++# 0: no frame\n\
++# 1: global frame\n\
++string frame_id\n\
++\n\
++";
++  }
++
++  static const char* value(const ::pcl::ModelCoefficients_<ContainerAllocator>&) { return value(); }
++};
++
++} // namespace message_traits
++} // namespace ros
++
++namespace ros
++{
++namespace serialization
++{
++
++  template<class ContainerAllocator> struct Serializer< ::pcl::ModelCoefficients_<ContainerAllocator> >
++  {
++    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
++    {
++      stream.next(m.header);
++      stream.next(m.values);
++    }
++
++    ROS_DECLARE_ALLINONE_SERIALIZER;
++  }; // struct ModelCoefficients_
++
++} // namespace serialization
++} // namespace ros
++
++namespace ros
++{
++namespace message_operations
++{
++
++template<class ContainerAllocator>
++struct Printer< ::pcl::ModelCoefficients_<ContainerAllocator> >
++{
++  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::pcl::ModelCoefficients_<ContainerAllocator>& v)
++  {
++    s << indent << "header: ";
++    s << std::endl;
++    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
++    s << indent << "values[]" << std::endl;
++    for (size_t i = 0; i < v.values.size(); ++i)
++    {
++      s << indent << "  values[" << i << "]: ";
++      Printer<float>::stream(s, indent + "  ", v.values[i]);
++    }
++  }
++};
++
++} // namespace message_operations
++} // namespace ros
++
++#endif // PCL_MESSAGE_MODELCOEFFICIENTS_H
+diff --git a/common/include/pcl/PointIndices.h b/common/include/pcl/PointIndices.h
+dissimilarity index 80%
+index 4c90a5d..91ecc15 100644
+--- a/common/include/pcl/PointIndices.h
++++ b/common/include/pcl/PointIndices.h
+@@ -1,44 +1,254 @@
+-#ifndef PCL_MESSAGE_POINTINDICES_H
+-#define PCL_MESSAGE_POINTINDICES_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-
+-// Include the correct Header path here
+-#include "std_msgs/Header.h"
+-
+-namespace pcl
+-{
+-  struct PointIndices
+-  {
+-    PointIndices () : header (), indices ()
+-    {}
+-
+-    ::std_msgs::Header header;
+-
+-    std::vector<int> indices;
+-
+-    public:
+-      typedef boost::shared_ptr< ::pcl::PointIndices> Ptr;
+-      typedef boost::shared_ptr< ::pcl::PointIndices const> ConstPtr;
+-  }; // struct PointIndices
+-
+-  typedef boost::shared_ptr< ::pcl::PointIndices> PointIndicesPtr;
+-  typedef boost::shared_ptr< ::pcl::PointIndices const> PointIndicesConstPtr;
+-
+-  inline std::ostream& operator << (std::ostream& s, const ::pcl::PointIndices &v)
+-  {
+-    s << "header: " << std::endl;
+-    s << "  " << v.header;
+-    s << "indices[]" << std::endl;
+-    for (size_t i = 0; i < v.indices.size (); ++i)
+-    {
+-      s << "  indices[" << i << "]: ";
+-      s << "  " << v.indices[i] << std::endl;
+-    }
+-    return (s);
+-  }
+-} // namespace pcl
+-
+-#endif // PCL_MESSAGE_POINTINDICES_H
+-
++/* Software License Agreement (BSD License)
++ *
++ * Copyright (c) 2011, Willow Garage, Inc.
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above
++ *    copyright notice, this list of conditions and the following
++ *    disclaimer in the documentation and/or other materials provided
++ *    with the distribution.
++ *  * Neither the name of Willow Garage, Inc. nor the names of its
++ *    contributors may be used to endorse or promote products derived
++ *    from this software without specific prior written permission.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
++ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ *
++ * Auto-generated by genmsg_cpp from file /u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg/PointIndices.msg
++ *
++ */
++
++
++#ifndef PCL_MESSAGE_POINTINDICES_H
++#define PCL_MESSAGE_POINTINDICES_H
++
++
++#include <string>
++#include <vector>
++#include <map>
++
++#include <ros/types.h>
++#include <ros/serialization.h>
++#include <ros/builtin_message_traits.h>
++#include <ros/message_operations.h>
++
++#include <std_msgs/Header.h>
++
++namespace pcl
++{
++template <class ContainerAllocator>
++struct PointIndices_
++{
++  typedef PointIndices_<ContainerAllocator> Type;
++
++  PointIndices_()
++    : header()
++    , indices()  {
++    }
++  PointIndices_(const ContainerAllocator& _alloc)
++    : header(_alloc)
++    , indices(_alloc)  {
++    }
++
++
++
++   typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
++  _header_type header;
++
++   typedef std::vector<int32_t, typename ContainerAllocator::template rebind<int32_t>::other >  _indices_type;
++  _indices_type indices;
++
++
++
++
++  typedef boost::shared_ptr< ::pcl::PointIndices_<ContainerAllocator> > Ptr;
++  typedef boost::shared_ptr< ::pcl::PointIndices_<ContainerAllocator> const> ConstPtr;
++  boost::shared_ptr<std::map<std::string, std::string> > __connection_header;
++
++}; // struct PointIndices_
++
++typedef ::pcl::PointIndices_<std::allocator<void> > PointIndices;
++
++typedef boost::shared_ptr< ::pcl::PointIndices > PointIndicesPtr;
++typedef boost::shared_ptr< ::pcl::PointIndices const> PointIndicesConstPtr;
++
++// constants requiring out of line definition
++
++
++
++template<typename ContainerAllocator>
++std::ostream& operator<<(std::ostream& s, const ::pcl::PointIndices_<ContainerAllocator> & v)
++{
++ros::message_operations::Printer< ::pcl::PointIndices_<ContainerAllocator> >::stream(s, "", v);
++return s;
++}
++
++} // namespace pcl
++
++namespace ros
++{
++namespace message_traits
++{
++
++
++
++// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
++// {'std_msgs': ['/opt/ros/groovy/share/std_msgs/msg'], 'sensor_msgs': ['/opt/ros/groovy/share/sensor_msgs/msg'], 'pcl': ['/u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg']}
++
++// !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
++
++
++
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::PointIndices_<ContainerAllocator> >
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::PointIndices_<ContainerAllocator> const>
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::PointIndices_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::PointIndices_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::PointIndices_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::PointIndices_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++
++template<class ContainerAllocator>
++struct MD5Sum< ::pcl::PointIndices_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "458c7998b7eaf99908256472e273b3d4";
++  }
++
++  static const char* value(const ::pcl::PointIndices_<ContainerAllocator>&) { return value(); }
++  static const uint64_t static_value1 = 0x458c7998b7eaf999ULL;
++  static const uint64_t static_value2 = 0x08256472e273b3d4ULL;
++};
++
++template<class ContainerAllocator>
++struct DataType< ::pcl::PointIndices_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "pcl/PointIndices";
++  }
++
++  static const char* value(const ::pcl::PointIndices_<ContainerAllocator>&) { return value(); }
++};
++
++template<class ContainerAllocator>
++struct Definition< ::pcl::PointIndices_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "Header header\n\
++int32[] indices\n\
++\n\
++\n\
++================================================================================\n\
++MSG: std_msgs/Header\n\
++# Standard metadata for higher-level stamped data types.\n\
++# This is generally used to communicate timestamped data \n\
++# in a particular coordinate frame.\n\
++# \n\
++# sequence ID: consecutively increasing ID \n\
++uint32 seq\n\
++#Two-integer timestamp that is expressed as:\n\
++# * stamp.secs: seconds (stamp_secs) since epoch\n\
++# * stamp.nsecs: nanoseconds since stamp_secs\n\
++# time-handling sugar is provided by the client library\n\
++time stamp\n\
++#Frame this data is associated with\n\
++# 0: no frame\n\
++# 1: global frame\n\
++string frame_id\n\
++\n\
++";
++  }
++
++  static const char* value(const ::pcl::PointIndices_<ContainerAllocator>&) { return value(); }
++};
++
++} // namespace message_traits
++} // namespace ros
++
++namespace ros
++{
++namespace serialization
++{
++
++  template<class ContainerAllocator> struct Serializer< ::pcl::PointIndices_<ContainerAllocator> >
++  {
++    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
++    {
++      stream.next(m.header);
++      stream.next(m.indices);
++    }
++
++    ROS_DECLARE_ALLINONE_SERIALIZER;
++  }; // struct PointIndices_
++
++} // namespace serialization
++} // namespace ros
++
++namespace ros
++{
++namespace message_operations
++{
++
++template<class ContainerAllocator>
++struct Printer< ::pcl::PointIndices_<ContainerAllocator> >
++{
++  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::pcl::PointIndices_<ContainerAllocator>& v)
++  {
++    s << indent << "header: ";
++    s << std::endl;
++    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
++    s << indent << "indices[]" << std::endl;
++    for (size_t i = 0; i < v.indices.size(); ++i)
++    {
++      s << indent << "  indices[" << i << "]: ";
++      Printer<int32_t>::stream(s, indent + "  ", v.indices[i]);
++    }
++  }
++};
++
++} // namespace message_operations
++} // namespace ros
++
++#endif // PCL_MESSAGE_POINTINDICES_H
+diff --git a/common/include/pcl/PolygonMesh.h b/common/include/pcl/PolygonMesh.h
+dissimilarity index 82%
+index 363edcd..d7f76e8 100644
+--- a/common/include/pcl/PolygonMesh.h
++++ b/common/include/pcl/PolygonMesh.h
+@@ -1,53 +1,323 @@
+-/* Auto-generated by genmsg_cpp for file /work/ros/pkgs-trunk/point_cloud_perception/pcl/msg/PolygonMesh.msg */
+-#ifndef PCL_MESSAGE_POLYGONMESH_H
+-#define PCL_MESSAGE_POLYGONMESH_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-
+-// Include the correct Header path here
+-#include "std_msgs/Header.h"
+-#include "sensor_msgs/PointCloud2.h"
+-#include <pcl/Vertices.h>
+-
+-namespace pcl
+-{
+-  struct PolygonMesh
+-  {
+-    PolygonMesh () : header (), cloud (), polygons ()
+-    {}
+-
+-    ::std_msgs::Header  header;
+-
+-    ::sensor_msgs::PointCloud2 cloud;
+-
+-    std::vector< ::pcl::Vertices>  polygons;
+-
+-
+-  public:
+-    typedef boost::shared_ptr< ::pcl::PolygonMesh> Ptr;
+-    typedef boost::shared_ptr< ::pcl::PolygonMesh const> ConstPtr;
+-  }; // struct PolygonMesh
+-
+-  typedef boost::shared_ptr< ::pcl::PolygonMesh> PolygonMeshPtr;
+-  typedef boost::shared_ptr< ::pcl::PolygonMesh const> PolygonMeshConstPtr;
+-
+-  inline std::ostream& operator<<(std::ostream& s, const  ::pcl::PolygonMesh &v)
+-  {
+-    s << "header: " << std::endl;
+-    s << v.header;
+-    s << "cloud: " << std::endl;
+-    s << v.cloud;
+-    s << "polygons[]" << std::endl;
+-    for (size_t i = 0; i < v.polygons.size (); ++i)
+-    {
+-      s << "  polygons[" << i << "]: " << std::endl;
+-      s << v.polygons[i];
+-    }
+-    return (s);
+-  }
+-
+-} // namespace pcl
+-
+-#endif // PCL_MESSAGE_POLYGONMESH_H
+-
++/* Software License Agreement (BSD License)
++ *
++ * Copyright (c) 2011, Willow Garage, Inc.
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above
++ *    copyright notice, this list of conditions and the following
++ *    disclaimer in the documentation and/or other materials provided
++ *    with the distribution.
++ *  * Neither the name of Willow Garage, Inc. nor the names of its
++ *    contributors may be used to endorse or promote products derived
++ *    from this software without specific prior written permission.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
++ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ *
++ * Auto-generated by genmsg_cpp from file /u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg/PolygonMesh.msg
++ *
++ */
++
++
++#ifndef PCL_MESSAGE_POLYGONMESH_H
++#define PCL_MESSAGE_POLYGONMESH_H
++
++
++#include <string>
++#include <vector>
++#include <map>
++
++#include <ros/types.h>
++#include <ros/serialization.h>
++#include <ros/builtin_message_traits.h>
++#include <ros/message_operations.h>
++
++#include <std_msgs/Header.h>
++#include <sensor_msgs/PointCloud2.h>
++#include <pcl/Vertices.h>
++
++namespace pcl
++{
++template <class ContainerAllocator>
++struct PolygonMesh_
++{
++  typedef PolygonMesh_<ContainerAllocator> Type;
++
++  PolygonMesh_()
++    : header()
++    , cloud()
++    , polygons()  {
++    }
++  PolygonMesh_(const ContainerAllocator& _alloc)
++    : header(_alloc)
++    , cloud(_alloc)
++    , polygons(_alloc)  {
++    }
++
++
++
++   typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
++  _header_type header;
++
++   typedef  ::sensor_msgs::PointCloud2_<ContainerAllocator>  _cloud_type;
++  _cloud_type cloud;
++
++   typedef std::vector< ::pcl::Vertices_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::pcl::Vertices_<ContainerAllocator> >::other >  _polygons_type;
++  _polygons_type polygons;
++
++
++
++
++  typedef boost::shared_ptr< ::pcl::PolygonMesh_<ContainerAllocator> > Ptr;
++  typedef boost::shared_ptr< ::pcl::PolygonMesh_<ContainerAllocator> const> ConstPtr;
++  boost::shared_ptr<std::map<std::string, std::string> > __connection_header;
++
++}; // struct PolygonMesh_
++
++typedef ::pcl::PolygonMesh_<std::allocator<void> > PolygonMesh;
++
++typedef boost::shared_ptr< ::pcl::PolygonMesh > PolygonMeshPtr;
++typedef boost::shared_ptr< ::pcl::PolygonMesh const> PolygonMeshConstPtr;
++
++// constants requiring out of line definition
++
++
++
++template<typename ContainerAllocator>
++std::ostream& operator<<(std::ostream& s, const ::pcl::PolygonMesh_<ContainerAllocator> & v)
++{
++ros::message_operations::Printer< ::pcl::PolygonMesh_<ContainerAllocator> >::stream(s, "", v);
++return s;
++}
++
++} // namespace pcl
++
++namespace ros
++{
++namespace message_traits
++{
++
++
++
++// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
++// {'std_msgs': ['/opt/ros/groovy/share/std_msgs/msg'], 'sensor_msgs': ['/opt/ros/groovy/share/sensor_msgs/msg'], 'pcl': ['/u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg']}
++
++// !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
++
++
++
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::PolygonMesh_<ContainerAllocator> >
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::PolygonMesh_<ContainerAllocator> const>
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::PolygonMesh_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::PolygonMesh_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::PolygonMesh_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::PolygonMesh_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++
++template<class ContainerAllocator>
++struct MD5Sum< ::pcl::PolygonMesh_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "45a5fc6ad2cde8489600a790acc9a38a";
++  }
++
++  static const char* value(const ::pcl::PolygonMesh_<ContainerAllocator>&) { return value(); }
++  static const uint64_t static_value1 = 0x45a5fc6ad2cde848ULL;
++  static const uint64_t static_value2 = 0x9600a790acc9a38aULL;
++};
++
++template<class ContainerAllocator>
++struct DataType< ::pcl::PolygonMesh_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "pcl/PolygonMesh";
++  }
++
++  static const char* value(const ::pcl::PolygonMesh_<ContainerAllocator>&) { return value(); }
++};
++
++template<class ContainerAllocator>
++struct Definition< ::pcl::PolygonMesh_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "# Separate header for the polygonal surface\n\
++Header header\n\
++# Vertices of the mesh as a point cloud\n\
++sensor_msgs/PointCloud2 cloud\n\
++# List of polygons\n\
++Vertices[] polygons\n\
++\n\
++================================================================================\n\
++MSG: std_msgs/Header\n\
++# Standard metadata for higher-level stamped data types.\n\
++# This is generally used to communicate timestamped data \n\
++# in a particular coordinate frame.\n\
++# \n\
++# sequence ID: consecutively increasing ID \n\
++uint32 seq\n\
++#Two-integer timestamp that is expressed as:\n\
++# * stamp.secs: seconds (stamp_secs) since epoch\n\
++# * stamp.nsecs: nanoseconds since stamp_secs\n\
++# time-handling sugar is provided by the client library\n\
++time stamp\n\
++#Frame this data is associated with\n\
++# 0: no frame\n\
++# 1: global frame\n\
++string frame_id\n\
++\n\
++================================================================================\n\
++MSG: sensor_msgs/PointCloud2\n\
++# This message holds a collection of N-dimensional points, which may\n\
++# contain additional information such as normals, intensity, etc. The\n\
++# point data is stored as a binary blob, its layout described by the\n\
++# contents of the \"fields\" array.\n\
++\n\
++# The point cloud data may be organized 2d (image-like) or 1d\n\
++# (unordered). Point clouds organized as 2d images may be produced by\n\
++# camera depth sensors such as stereo or time-of-flight.\n\
++\n\
++# Time of sensor data acquisition, and the coordinate frame ID (for 3d\n\
++# points).\n\
++Header header\n\
++\n\
++# 2D structure of the point cloud. If the cloud is unordered, height is\n\
++# 1 and width is the length of the point cloud.\n\
++uint32 height\n\
++uint32 width\n\
++\n\
++# Describes the channels and their layout in the binary data blob.\n\
++PointField[] fields\n\
++\n\
++bool    is_bigendian # Is this data bigendian?\n\
++uint32  point_step   # Length of a point in bytes\n\
++uint32  row_step     # Length of a row in bytes\n\
++uint8[] data         # Actual point data, size is (row_step*height)\n\
++\n\
++bool is_dense        # True if there are no invalid points\n\
++\n\
++================================================================================\n\
++MSG: sensor_msgs/PointField\n\
++# This message holds the description of one point entry in the\n\
++# PointCloud2 message format.\n\
++uint8 INT8    = 1\n\
++uint8 UINT8   = 2\n\
++uint8 INT16   = 3\n\
++uint8 UINT16  = 4\n\
++uint8 INT32   = 5\n\
++uint8 UINT32  = 6\n\
++uint8 FLOAT32 = 7\n\
++uint8 FLOAT64 = 8\n\
++\n\
++string name      # Name of field\n\
++uint32 offset    # Offset from start of point struct\n\
++uint8  datatype  # Datatype enumeration, see above\n\
++uint32 count     # How many elements in the field\n\
++\n\
++================================================================================\n\
++MSG: pcl/Vertices\n\
++# List of point indices\n\
++uint32[] vertices\n\
++\n\
++";
++  }
++
++  static const char* value(const ::pcl::PolygonMesh_<ContainerAllocator>&) { return value(); }
++};
++
++} // namespace message_traits
++} // namespace ros
++
++namespace ros
++{
++namespace serialization
++{
++
++  template<class ContainerAllocator> struct Serializer< ::pcl::PolygonMesh_<ContainerAllocator> >
++  {
++    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
++    {
++      stream.next(m.header);
++      stream.next(m.cloud);
++      stream.next(m.polygons);
++    }
++
++    ROS_DECLARE_ALLINONE_SERIALIZER;
++  }; // struct PolygonMesh_
++
++} // namespace serialization
++} // namespace ros
++
++namespace ros
++{
++namespace message_operations
++{
++
++template<class ContainerAllocator>
++struct Printer< ::pcl::PolygonMesh_<ContainerAllocator> >
++{
++  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::pcl::PolygonMesh_<ContainerAllocator>& v)
++  {
++    s << indent << "header: ";
++    s << std::endl;
++    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
++    s << indent << "cloud: ";
++    s << std::endl;
++    Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.cloud);
++    s << indent << "polygons[]" << std::endl;
++    for (size_t i = 0; i < v.polygons.size(); ++i)
++    {
++      s << indent << "  polygons[" << i << "]: ";
++      s << std::endl;
++      s << indent;
++      Printer< ::pcl::Vertices_<ContainerAllocator> >::stream(s, indent + "    ", v.polygons[i]);
++    }
++  }
++};
++
++} // namespace message_operations
++} // namespace ros
++
++#endif // PCL_MESSAGE_POLYGONMESH_H
+diff --git a/common/include/pcl/Vertices.h b/common/include/pcl/Vertices.h
+dissimilarity index 79%
+index 631b8c0..e680d88 100644
+--- a/common/include/pcl/Vertices.h
++++ b/common/include/pcl/Vertices.h
+@@ -1,42 +1,225 @@
+-#ifndef PCL_MESSAGE_VERTICES_H
+-#define PCL_MESSAGE_VERTICES_H
+-#include <string>
+-#include <vector>
+-#include <ostream>
+-#include <pcl/pcl_macros.h>
+-
+-namespace pcl
+-{
+-  /** \brief Describes a set of vertices in a polygon mesh, by basically
+-    * storing an array of indices.
+-    */
+-  struct Vertices
+-  {
+-    Vertices () : vertices ()
+-    {}
+-
+-    std::vector<uint32_t> vertices;
+-
+-  public:
+-    typedef boost::shared_ptr<Vertices> Ptr;
+-    typedef boost::shared_ptr<Vertices const> ConstPtr;
+-  }; // struct Vertices
+-
+-
+-  typedef boost::shared_ptr<Vertices> VerticesPtr;
+-  typedef boost::shared_ptr<Vertices const> VerticesConstPtr;
+-
+-  inline std::ostream& operator<<(std::ostream& s, const  ::pcl::Vertices & v)
+-  {
+-    s << "vertices[]" << std::endl;
+-    for (size_t i = 0; i < v.vertices.size (); ++i)
+-    {
+-      s << "  vertices[" << i << "]: ";
+-      s << "  " << v.vertices[i] << std::endl;
+-    }
+-    return (s);
+-  }
+-} // namespace pcl
+-
+-#endif // PCL_MESSAGE_VERTICES_H
+-
++/* Software License Agreement (BSD License)
++ *
++ * Copyright (c) 2011, Willow Garage, Inc.
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above
++ *    copyright notice, this list of conditions and the following
++ *    disclaimer in the documentation and/or other materials provided
++ *    with the distribution.
++ *  * Neither the name of Willow Garage, Inc. nor the names of its
++ *    contributors may be used to endorse or promote products derived
++ *    from this software without specific prior written permission.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
++ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
++ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ *
++ * Auto-generated by genmsg_cpp from file /u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg/Vertices.msg
++ *
++ */
++
++
++#ifndef PCL_MESSAGE_VERTICES_H
++#define PCL_MESSAGE_VERTICES_H
++
++
++#include <string>
++#include <vector>
++#include <map>
++
++#include <ros/types.h>
++#include <ros/serialization.h>
++#include <ros/builtin_message_traits.h>
++#include <ros/message_operations.h>
++
++
++namespace pcl
++{
++template <class ContainerAllocator>
++struct Vertices_
++{
++  typedef Vertices_<ContainerAllocator> Type;
++
++  Vertices_()
++    : vertices()  {
++    }
++  Vertices_(const ContainerAllocator& _alloc)
++    : vertices(_alloc)  {
++    }
++
++
++
++   typedef std::vector<uint32_t, typename ContainerAllocator::template rebind<uint32_t>::other >  _vertices_type;
++  _vertices_type vertices;
++
++
++
++
++  typedef boost::shared_ptr< ::pcl::Vertices_<ContainerAllocator> > Ptr;
++  typedef boost::shared_ptr< ::pcl::Vertices_<ContainerAllocator> const> ConstPtr;
++  boost::shared_ptr<std::map<std::string, std::string> > __connection_header;
++
++}; // struct Vertices_
++
++typedef ::pcl::Vertices_<std::allocator<void> > Vertices;
++
++typedef boost::shared_ptr< ::pcl::Vertices > VerticesPtr;
++typedef boost::shared_ptr< ::pcl::Vertices const> VerticesConstPtr;
++
++// constants requiring out of line definition
++
++
++
++template<typename ContainerAllocator>
++std::ostream& operator<<(std::ostream& s, const ::pcl::Vertices_<ContainerAllocator> & v)
++{
++ros::message_operations::Printer< ::pcl::Vertices_<ContainerAllocator> >::stream(s, "", v);
++return s;
++}
++
++} // namespace pcl
++
++namespace ros
++{
++namespace message_traits
++{
++
++
++
++// BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
++// {'std_msgs': ['/opt/ros/groovy/share/std_msgs/msg'], 'sensor_msgs': ['/opt/ros/groovy/share/sensor_msgs/msg'], 'pcl': ['/u/vrabaud/tmp/workspace/perception_pcl/pcl_ros/msg']}
++
++// !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
++
++
++
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::Vertices_<ContainerAllocator> >
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsFixedSize< ::pcl::Vertices_<ContainerAllocator> const>
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::Vertices_<ContainerAllocator> >
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct IsMessage< ::pcl::Vertices_<ContainerAllocator> const>
++  : TrueType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::Vertices_<ContainerAllocator> >
++  : FalseType
++  { };
++
++template <class ContainerAllocator>
++struct HasHeader< ::pcl::Vertices_<ContainerAllocator> const>
++  : FalseType
++  { };
++
++
++template<class ContainerAllocator>
++struct MD5Sum< ::pcl::Vertices_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "39bd7b1c23763ddd1b882b97cb7cfe11";
++  }
++
++  static const char* value(const ::pcl::Vertices_<ContainerAllocator>&) { return value(); }
++  static const uint64_t static_value1 = 0x39bd7b1c23763dddULL;
++  static const uint64_t static_value2 = 0x1b882b97cb7cfe11ULL;
++};
++
++template<class ContainerAllocator>
++struct DataType< ::pcl::Vertices_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "pcl/Vertices";
++  }
++
++  static const char* value(const ::pcl::Vertices_<ContainerAllocator>&) { return value(); }
++};
++
++template<class ContainerAllocator>
++struct Definition< ::pcl::Vertices_<ContainerAllocator> >
++{
++  static const char* value()
++  {
++    return "# List of point indices\n\
++uint32[] vertices\n\
++\n\
++";
++  }
++
++  static const char* value(const ::pcl::Vertices_<ContainerAllocator>&) { return value(); }
++};
++
++} // namespace message_traits
++} // namespace ros
++
++namespace ros
++{
++namespace serialization
++{
++
++  template<class ContainerAllocator> struct Serializer< ::pcl::Vertices_<ContainerAllocator> >
++  {
++    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
++    {
++      stream.next(m.vertices);
++    }
++
++    ROS_DECLARE_ALLINONE_SERIALIZER;
++  }; // struct Vertices_
++
++} // namespace serialization
++} // namespace ros
++
++namespace ros
++{
++namespace message_operations
++{
++
++template<class ContainerAllocator>
++struct Printer< ::pcl::Vertices_<ContainerAllocator> >
++{
++  template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::pcl::Vertices_<ContainerAllocator>& v)
++  {
++    s << indent << "vertices[]" << std::endl;
++    for (size_t i = 0; i < v.vertices.size(); ++i)
++    {
++      s << indent << "  vertices[" << i << "]: ";
++      Printer<uint32_t>::stream(s, indent + "  ", v.vertices[i]);
++    }
++  }
++};
++
++} // namespace message_operations
++} // namespace ros
++
++#endif // PCL_MESSAGE_VERTICES_H
+diff --git a/package.xml b/package.xml
+new file mode 100644
+index 0000000..97d6318
+--- /dev/null
++++ b/package.xml
+@@ -0,0 +1,56 @@
++<package>
++  <name>pcl</name>
++  <version>1.6.0</version>
++  <description>The Point Cloud Library (or PCL) for point cloud processing - development
++    The PCL framework contains numerous state-of-the art algorithms including
++    filtering, feature estimation, surface reconstruction, registration, model
++    fitting and segmentation.</description>
++  <maintainer email="jkammerl@willowgarage.com">Julius Kammerl</maintainer>
++  <author>Open Perception</author>
++  <license>BSD</license>
++  <copyright>Open Perception</copyright>
++
++  <url type="website">http://www.pointclouds.org</url>
++  <url type="bugtracker">http://dev.pointclouds.org</url>
++  <url type="repository">https://github.com/wg-debs/pcl</url>
++
++  <build_depend>boost</build_depend>
++  <build_depend>cpp_common</build_depend>
++  <build_depend>eigen</build_depend>
++  <build_depend>flann</build_depend>
++  <build_depend>libmysqlclient-dev</build_depend>
++  <build_depend>libqhull</build_depend>
++  <build_depend>libusb-1.0-dev</build_depend>
++  <build_depend>libvtk</build_depend>
++  <build_depend>python-sphinx</build_depend>
++  <build_depend>rosbag</build_depend>
++  <build_depend>rosconsole</build_depend>
++  <build_depend>roscpp</build_depend>
++  <build_depend>roscpp_serialization</build_depend>
++  <build_depend>roscpp_traits</build_depend>
++  <build_depend>rostime</build_depend>
++  <build_depend>sensor_msgs</build_depend>
++  <build_depend>std_msgs</build_depend>
++  <build_depend>topic_tools</build_depend>
++
++  <buildtool_depend>cmake</buildtool_depend>
++
++  <run_depend>boost</run_depend>
++  <run_depend>cpp_common</run_depend>
++  <run_depend>eigen</run_depend>
++  <run_depend>flann</run_depend>
++  <run_depend>libmysqlclient-dev</run_depend>
++  <run_depend>libqhull</run_depend>
++  <run_depend>libusb-1.0-dev</run_depend>
++  <run_depend>libvtk</run_depend>
++  <run_depend>python-sphinx</run_depend>
++  <run_depend>rosbag</run_depend>
++  <run_depend>rosconsole</run_depend>
++  <run_depend>roscpp</run_depend>
++  <run_depend>roscpp_serialization</run_depend>
++  <run_depend>roscpp_traits</run_depend>
++  <run_depend>rostime</run_depend>
++  <run_depend>sensor_msgs</run_depend>
++  <run_depend>std_msgs</run_depend>
++  <run_depend>topic_tools</run_depend>
++</package>
+-- 
+1.7.9.5
+
