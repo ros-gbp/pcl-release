@@ -57,14 +57,6 @@ if(build)
         include/pcl/pcl_tests.h
         )
         
-        set(incs ${incs}
-          include/pcl/ModelCoefficients.h
-          include/pcl/PolygonMesh.h
-          include/pcl/Vertices.h
-          include/pcl/PointIndices.h
-          include/pcl/TextureMesh.h
-          )
-
     if(NOT USE_ROS)
         set(incs ${incs}
           include/pcl/ModelCoefficients.h
