@@ -10,8 +10,6 @@ project(pcl)
 find_package(catkin)
 catkin_package()
 
-set(USE_ROS "ON")
-
 project(PCL)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 
