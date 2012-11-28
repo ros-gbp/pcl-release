@@ -1,0 +1,32 @@
+From b7e1ba6393979f4907f5b164b1dd12973a72eeab Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
+Date: Wed, 28 Nov 2012 11:24:20 -0800
+Subject: [PATCH 4/5] fixing missing TextureMesh.h export
+
+---
+ common/CMakeLists.txt |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common/CMakeLists.txt b/common/CMakeLists.txt
+index ac6a9d7..5d8744a 100644
+--- a/common/CMakeLists.txt
++++ b/common/CMakeLists.txt
+@@ -55,6 +55,7 @@ if(build)
+         include/pcl/channel_properties.h
+         include/pcl/for_each_type.h
+         include/pcl/pcl_tests.h
++        include/pcl/TextureMesh.h
+         )
+         
+     if(NOT USE_ROS)
+@@ -63,7 +64,6 @@ if(build)
+           include/pcl/PolygonMesh.h
+           include/pcl/Vertices.h
+           include/pcl/PointIndices.h
+-          include/pcl/TextureMesh.h
+           )
+ 
+         set(sensor_msg_incs 
+-- 
+1.7.9.5
+
