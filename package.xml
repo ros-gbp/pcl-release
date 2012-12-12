@@ -54,4 +54,9 @@
   <run_depend>std_msgs</run_depend>
   <run_depend>topic_tools</run_depend>
   <run_depend>pcl_msgs</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+
 </package>
