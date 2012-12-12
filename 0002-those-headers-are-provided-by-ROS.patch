@@ -1,7 +1,7 @@
 From 6a157761a86ac67c362907f1ee1ffec4a958602b Mon Sep 17 00:00:00 2001
 From: Vincent Rabaud <vrabaud@willowgarage.com>
 Date: Sun, 11 Nov 2012 00:12:28 -0800
-Subject: [PATCH 2/5] those headers are provided by ROS
+Subject: [PATCH 2/7] those headers are provided by ROS
 
 ---
  common/include/sensor_msgs/Image.h       |   61 ------------------
@@ -294,5 +294,5 @@ index 19b18af..0000000
 -#endif // PCL_ROSLIB_MESSAGE_HEADER_H
 -
 -- 
-1.7.9.5
+1.7.10.2 (Apple Git-33)
 

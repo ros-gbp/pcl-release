@@ -1,0 +1,26 @@
+From 6ac6be9f51d93b9d4fffa107c63245643ab9a843 Mon Sep 17 00:00:00 2001
+From: William Woodall <wjwwood@gmail.com>
+Date: Tue, 11 Dec 2012 20:08:19 -0800
+Subject: [PATCH 7/7] Adding build_type as cmake
+
+---
+ package.xml |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/package.xml b/package.xml
+index 6ca6e33..707c909 100644
+--- a/package.xml
++++ b/package.xml
+@@ -54,4 +54,9 @@
+   <run_depend>std_msgs</run_depend>
+   <run_depend>topic_tools</run_depend>
+   <run_depend>pcl_msgs</run_depend>
++
++  <export>
++    <build_type>cmake</build_type>
++  </export>
++
+ </package>
+-- 
+1.7.10.2 (Apple Git-33)
+
