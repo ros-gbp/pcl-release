@@ -1,7 +1,7 @@
 From 6111779aa9e2037367d526003c096ae05c93920e Mon Sep 17 00:00:00 2001
 From: William Woodall <wjwwood@gmail.com>
 Date: Thu, 6 Dec 2012 15:42:41 -0800
-Subject: [PATCH 6/7] Removing copyright tag from package.xml
+Subject: [PATCH 6/9] Removing copyright tag from package.xml
 
 ---
  package.xml |    1 -
@@ -20,5 +20,5 @@ index a77fe4c..6ca6e33 100644
    <url type="website">http://www.pointclouds.org</url>
    <url type="bugtracker">http://dev.pointclouds.org</url>
 -- 
-1.7.10.2 (Apple Git-33)
+1.7.10.4
 

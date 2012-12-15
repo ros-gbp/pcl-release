@@ -1,7 +1,7 @@
 From b7e1ba6393979f4907f5b164b1dd12973a72eeab Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
 Date: Wed, 28 Nov 2012 11:24:20 -0800
-Subject: [PATCH 4/7] fixing missing TextureMesh.h export
+Subject: [PATCH 4/9] fixing missing TextureMesh.h export
 
 ---
  common/CMakeLists.txt |    2 +-
@@ -28,5 +28,5 @@ index ac6a9d7..5d8744a 100644
  
          set(sensor_msg_incs 
 -- 
-1.7.10.2 (Apple Git-33)
+1.7.10.4
 
