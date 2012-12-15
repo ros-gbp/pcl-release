@@ -13,6 +13,8 @@
   <url type="bugtracker">http://dev.pointclouds.org</url>
   <url type="repository">https://github.com/wg-debs/pcl</url>
 
+  <buildtool_depend>catkin</buildtool_depend>
+
   <build_depend>boost</build_depend>
   <build_depend>cpp_common</build_depend>
   <build_depend>eigen</build_depend>
