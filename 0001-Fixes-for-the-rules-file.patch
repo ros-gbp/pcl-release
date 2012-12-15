@@ -1,4 +1,4 @@
-From a5a85ef6b7b588b381574e3186ec9100ada6feee Mon Sep 17 00:00:00 2001
+From eb3150639b07500a5a864539ae7f7ffef690843f Mon Sep 17 00:00:00 2001
 From: William Woodall <wjwwood@gmail.com>
 Date: Sat, 10 Nov 2012 23:50:38 -0800
 Subject: [PATCH] Fixes for the rules file
@@ -71,5 +71,5 @@ index 06f2a6c..6796d6c 100755
  	if [ -f "/opt/ros/groovy/setup.sh" ]; then . "/opt/ros/groovy/setup.sh"; fi && \
  	dh_shlibdeps -l$(CURDIR)/debian/ros-groovy-pcl//opt/ros/groovy/lib/
 -- 
-1.7.9.5
+1.7.10.4
 
