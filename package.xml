@@ -35,6 +35,7 @@
   <build_depend>topic_tools</build_depend>
   <build_depend>pcl_msgs</build_depend>
 
+  <buildtool_depend>catkin</buildtool_depend>
   <buildtool_depend>cmake</buildtool_depend>
 
   <run_depend>boost</run_depend>
