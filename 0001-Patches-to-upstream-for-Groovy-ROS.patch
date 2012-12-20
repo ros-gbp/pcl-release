@@ -1,7 +1,7 @@
 From ea860a07225eeab6f261bdaa5d98b0f9671cd6b1 Mon Sep 17 00:00:00 2001
 From: William Woodall <wjwwood@gmail.com>
 Date: Sat, 10 Nov 2012 23:45:14 -0800
-Subject: [PATCH 1/9] Patches to upstream for Groovy ROS
+Subject: [PATCH 01/11] Patches to upstream for Groovy ROS
 
 ---
  CMakeLists.txt                         |    4 +
@@ -1403,5 +1403,5 @@ index 0000000..97d6318
 +  <run_depend>topic_tools</run_depend>
 +</package>
 -- 
-1.7.10.4
+1.7.9.5
 

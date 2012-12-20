@@ -1,0 +1,26 @@
+From 1923ad6bd1669ae038928d40a078b0d58464d709 Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
+Date: Wed, 19 Dec 2012 19:36:17 -0800
+Subject: [PATCH 11/11] fixed warning: SHOT deprecated
+
+---
+ common/include/pcl/point_types.h |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/common/include/pcl/point_types.h b/common/include/pcl/point_types.h
+index 46b7870..8feb73c 100644
+--- a/common/include/pcl/point_types.h
++++ b/common/include/pcl/point_types.h
+@@ -185,8 +185,7 @@ namespace pcl
+     * \ingroup common
+     * \deprecated USE SHOT352 FOR SHAPE AND SHOT1344 FOR SHAPE+COLOR INSTEAD
+     */
+-  struct
+-  PCL_DEPRECATED_CLASS (SHOT, "USE SHOT352 FOR SHAPE AND SHOT1344 FOR SHAPE+COLOR INSTEAD");
++  struct SHOT;
+ 
+   /** \brief Members: float descriptor[352], rf[9]
+     * \ingroup common
+-- 
+1.7.9.5
+

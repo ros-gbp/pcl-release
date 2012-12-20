@@ -1,7 +1,7 @@
 From 6ac6be9f51d93b9d4fffa107c63245643ab9a843 Mon Sep 17 00:00:00 2001
 From: William Woodall <wjwwood@gmail.com>
 Date: Tue, 11 Dec 2012 20:08:19 -0800
-Subject: [PATCH 7/9] Adding build_type as cmake
+Subject: [PATCH 07/11] Adding build_type as cmake
 
 ---
  package.xml |    5 +++++
@@ -22,5 +22,5 @@ index 6ca6e33..707c909 100644
 +
  </package>
 -- 
-1.7.10.4
+1.7.9.5
 

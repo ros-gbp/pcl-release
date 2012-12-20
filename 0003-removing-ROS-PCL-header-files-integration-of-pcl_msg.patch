@@ -1,7 +1,7 @@
 From 758b29487d08bc216a7eb780df2e30920b490b1b Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
 Date: Tue, 27 Nov 2012 15:16:42 -0800
-Subject: [PATCH 3/9] removing ROS-PCL header files, integration of pcl_msgs
+Subject: [PATCH 03/11] removing ROS-PCL header files, integration of pcl_msgs
 
 ---
  CMakeLists.txt                         |    2 +
@@ -1148,5 +1148,5 @@ index 97d6318..a77fe4c 100644
 +  <run_depend>pcl_msgs</run_depend>
  </package>
 -- 
-1.7.10.4
+1.7.9.5
 
