@@ -2,7 +2,7 @@
 
 # A macro for linking the ROS libraries.  (Might not be necessary... todo: add this logic at the find_package(ROS))
 macro(link_ros_libs _target)
-  if(ROS_FOUND)
+  if(carkin_FOUND)
     # if find_package(ROS ...) found the required libraries, link against those
     target_link_libraries(${_target} ${ROS_LIBRARIES})
   elseif(USE_ROS)
@@ -29,10 +29,10 @@ endmacro(get_ros_inc_path)
     message(STATUS "Found ROS; USE_ROS is ${USE_ROS}")
     if(USE_ROS)
         # Search for ROS
-        find_package(ROS COMPONENTS catkin roscpp_serialization std_msgs sensor_msgs rostime)
-	if (ROS_FOUND)
+        find_package(catkin COMPONENTS roscpp_serialization std_msgs sensor_msgs rostime)
+	if (catkin_FOUND)
 	  # if find_package(ROS ...) found the required components, add their include directories
-          include_directories(${ROS_INCLUDE_DIRS})
+          include_directories(${catkin_INCLUDE_DIRS})
 	else()
           # otherwise, search for these particular packages the old hacky way	  
           set(_ros_pkgs std_msgs sensor_msgs roscpp_serialization cpp_common rostime
