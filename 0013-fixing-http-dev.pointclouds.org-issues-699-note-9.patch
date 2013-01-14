@@ -1,0 +1,25 @@
+From e8492dc3bf780b851863e40f9b916ea43a91760a Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <julius@kammerl.de>
+Date: Mon, 14 Jan 2013 10:44:47 -0800
+Subject: [PATCH 13/13] fixing http://dev.pointclouds.org/issues/699#note-9
+
+---
+ common/include/pcl/point_cloud.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common/include/pcl/point_cloud.h b/common/include/pcl/point_cloud.h
+index a61ac51..145e1ef 100644
+--- a/common/include/pcl/point_cloud.h
++++ b/common/include/pcl/point_cloud.h
+@@ -649,7 +649,7 @@ namespace pcl
+         width (pc.width), height (pc.height), is_dense (pc.is_dense)
+       {
+         // Copy the obvious
+-        properties.acquisition_time   = pc.header.stamp;
++        properties.acquisition_time   = pc.header.stamp.sec;
+         properties.sensor_origin      = pc.sensor_origin_;//.head<3> ();
+         properties.sensor_orientation = pc.sensor_orientation_;
+ 
+-- 
+1.7.9.5
+
