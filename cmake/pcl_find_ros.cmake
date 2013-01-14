@@ -4,7 +4,7 @@
 macro(link_ros_libs _target)
   if(carkin_FOUND)
     # if find_package(ROS ...) found the required libraries, link against those
-    target_link_libraries(${_target} ${ROS_LIBRARIES})
+    target_link_libraries(${_target} ${catkin_LIBRARIES})
   elseif(USE_ROS)
     # otherwise, we have to specify them here
     target_link_libraries(${_target} sensor_msgs roscpp_serialization rosconsole rostime)
