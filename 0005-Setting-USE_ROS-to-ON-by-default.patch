@@ -1,7 +1,7 @@
 From f8eca73e5d2e1fd688a9d31cac6f2bcc0db5e9af Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
 Date: Wed, 28 Nov 2012 12:21:39 -0800
-Subject: [PATCH 05/13] Setting USE_ROS to ON by default
+Subject: [PATCH 05/14] Setting USE_ROS to ON by default
 
 ---
  CMakeLists.txt           |    2 --

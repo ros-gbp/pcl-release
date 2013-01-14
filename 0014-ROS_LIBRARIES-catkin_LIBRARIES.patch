@@ -1,0 +1,25 @@
+From 7c55dd76b6d284c74516ccc3fd92b6df2329a6c6 Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <julius@kammerl.de>
+Date: Mon, 14 Jan 2013 10:55:01 -0800
+Subject: [PATCH 14/14] ROS_LIBRARIES -> catkin_LIBRARIES
+
+---
+ cmake/pcl_find_ros.cmake |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/pcl_find_ros.cmake b/cmake/pcl_find_ros.cmake
+index 528e9e6..b444c70 100644
+--- a/cmake/pcl_find_ros.cmake
++++ b/cmake/pcl_find_ros.cmake
+@@ -4,7 +4,7 @@
+ macro(link_ros_libs _target)
+   if(carkin_FOUND)
+     # if find_package(ROS ...) found the required libraries, link against those
+-    target_link_libraries(${_target} ${ROS_LIBRARIES})
++    target_link_libraries(${_target} ${catkin_LIBRARIES})
+   elseif(USE_ROS)
+     # otherwise, we have to specify them here
+     target_link_libraries(${_target} sensor_msgs roscpp_serialization rosconsole rostime)
+-- 
+1.7.9.5
+

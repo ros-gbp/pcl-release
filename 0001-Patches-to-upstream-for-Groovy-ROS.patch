@@ -1,7 +1,7 @@
 From ea860a07225eeab6f261bdaa5d98b0f9671cd6b1 Mon Sep 17 00:00:00 2001
 From: William Woodall <wjwwood@gmail.com>
 Date: Sat, 10 Nov 2012 23:45:14 -0800
-Subject: [PATCH 01/13] Patches to upstream for Groovy ROS
+Subject: [PATCH 01/14] Patches to upstream for Groovy ROS
 
 ---
  CMakeLists.txt                         |    4 +
