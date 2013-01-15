@@ -2,7 +2,7 @@
 
 # A macro for linking the ROS libraries.  (Might not be necessary... todo: add this logic at the find_package(ROS))
 macro(link_ros_libs _target)
-  if(carkin_FOUND)
+  if(catkin_FOUND)
     # if find_package(ROS ...) found the required libraries, link against those
     target_link_libraries(${_target} ${catkin_LIBRARIES})
   elseif(USE_ROS)
