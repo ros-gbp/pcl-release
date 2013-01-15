@@ -29,7 +29,7 @@ endmacro(get_ros_inc_path)
     message(STATUS "Found ROS; USE_ROS is ${USE_ROS}")
     if(USE_ROS)
         # Search for ROS
-        find_package(catkin COMPONENTS roscpp_serialization std_msgs sensor_msgs rostime)
+        find_package(catkin REQUIRED COMPONENTS roscpp_serialization std_msgs sensor_msgs rostime)
 	if (catkin_FOUND)
 	  # if find_package(ROS ...) found the required components, add their include directories
           include_directories(${catkin_INCLUDE_DIRS})
