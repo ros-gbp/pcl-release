@@ -53,7 +53,7 @@
 
 // We're doing a lot of black magic with Boost here, so disable warnings in Maintainer mode, as we will never
 // be able to fix them anyway
-#pragma warning(disable: 4201)
+//#pragma warning(disable: 4201)
 //#pragma warning(push, 1)
 #ifdef BUILD_Maintainer
 #  if defined __GNUC__
