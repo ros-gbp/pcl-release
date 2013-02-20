@@ -1,0 +1,25 @@
+From bf43ffc0eebca4042c6765319c4dd211409d7ace Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <julius@kammerl.de>
+Date: Mon, 14 Jan 2013 19:08:14 -0800
+Subject: [PATCH 15/17] fixed typo
+
+---
+ cmake/pcl_find_ros.cmake |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/pcl_find_ros.cmake b/cmake/pcl_find_ros.cmake
+index b444c70..d46c6fa 100644
+--- a/cmake/pcl_find_ros.cmake
++++ b/cmake/pcl_find_ros.cmake
+@@ -2,7 +2,7 @@
+ 
+ # A macro for linking the ROS libraries.  (Might not be necessary... todo: add this logic at the find_package(ROS))
+ macro(link_ros_libs _target)
+-  if(carkin_FOUND)
++  if(catkin_FOUND)
+     # if find_package(ROS ...) found the required libraries, link against those
+     target_link_libraries(${_target} ${catkin_LIBRARIES})
+   elseif(USE_ROS)
+-- 
+1.7.9.5
+

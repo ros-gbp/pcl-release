@@ -1,0 +1,25 @@
+From c6e07487758d1a69d7bf2cec770e601a137dd3b1 Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <julius@kammerl.de>
+Date: Wed, 20 Feb 2013 00:14:18 -0800
+Subject: [PATCH 17/17] fixing pragma warning
+
+---
+ common/include/pcl/point_types.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common/include/pcl/point_types.h b/common/include/pcl/point_types.h
+index 8feb73c..ff3fbf0 100644
+--- a/common/include/pcl/point_types.h
++++ b/common/include/pcl/point_types.h
+@@ -53,7 +53,7 @@
+ 
+ // We're doing a lot of black magic with Boost here, so disable warnings in Maintainer mode, as we will never
+ // be able to fix them anyway
+-#pragma warning(disable: 4201)
++//#pragma warning(disable: 4201)
+ //#pragma warning(push, 1)
+ #ifdef BUILD_Maintainer
+ #  if defined __GNUC__
+-- 
+1.7.9.5
+

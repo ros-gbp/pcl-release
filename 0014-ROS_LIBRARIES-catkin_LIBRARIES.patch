@@ -1,7 +1,7 @@
 From 7c55dd76b6d284c74516ccc3fd92b6df2329a6c6 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Mon, 14 Jan 2013 10:55:01 -0800
-Subject: [PATCH 14/14] ROS_LIBRARIES -> catkin_LIBRARIES
+Subject: [PATCH 14/17] ROS_LIBRARIES -> catkin_LIBRARIES
 
 ---
  cmake/pcl_find_ros.cmake |    2 +-

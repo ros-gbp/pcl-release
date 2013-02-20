@@ -1,7 +1,7 @@
 From 3ed4f639a8c66b95dc7edbe2697e5b9529a1f30d Mon Sep 17 00:00:00 2001
 From: Dirk Thomas <dthomas@willowgarage.com>
 Date: Sat, 15 Dec 2012 01:41:29 -0800
-Subject: [PATCH 09/14] add missing dep on catkin
+Subject: [PATCH 09/17] add missing dep on catkin
 
 ---
  package.xml |    1 +

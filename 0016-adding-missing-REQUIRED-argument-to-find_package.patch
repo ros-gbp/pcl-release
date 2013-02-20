@@ -1,0 +1,25 @@
+From 80f7904d327e79e36f33add764e4b8794825cfba Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <julius@kammerl.de>
+Date: Mon, 14 Jan 2013 19:13:42 -0800
+Subject: [PATCH 16/17] adding missing REQUIRED argument to find_package
+
+---
+ cmake/pcl_find_ros.cmake |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/pcl_find_ros.cmake b/cmake/pcl_find_ros.cmake
+index d46c6fa..4e80164 100644
+--- a/cmake/pcl_find_ros.cmake
++++ b/cmake/pcl_find_ros.cmake
+@@ -29,7 +29,7 @@ endmacro(get_ros_inc_path)
+     message(STATUS "Found ROS; USE_ROS is ${USE_ROS}")
+     if(USE_ROS)
+         # Search for ROS
+-        find_package(catkin COMPONENTS roscpp_serialization std_msgs sensor_msgs rostime)
++        find_package(catkin REQUIRED COMPONENTS roscpp_serialization std_msgs sensor_msgs rostime)
+ 	if (catkin_FOUND)
+ 	  # if find_package(ROS ...) found the required components, add their include directories
+           include_directories(${catkin_INCLUDE_DIRS})
+-- 
+1.7.9.5
+
