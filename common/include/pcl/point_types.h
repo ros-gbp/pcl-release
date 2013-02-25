@@ -53,7 +53,10 @@
 
 // We're doing a lot of black magic with Boost here, so disable warnings in Maintainer mode, as we will never
 // be able to fix them anyway
-//#pragma warning(disable: 4201)
+#if defined _MSC_VER
+  #pragma warning(disable: 4201)
+#endif
+
 //#pragma warning(push, 1)
 #ifdef BUILD_Maintainer
 #  if defined __GNUC__
@@ -586,7 +589,9 @@ namespace pcl {
   };
 } // namespace pcl
 
-#pragma warning(default: 4201)
+#if defined _MSC_VER
+  #pragma warning(default: 4201)
+#endif
 //#pragma warning(pop)
 #ifdef BUILD_Maintainer
 #  if defined __GNUC__
