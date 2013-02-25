@@ -1,4 +1,4 @@
-From b70edde1781db44a42a92f06643d9e39bbf95246 Mon Sep 17 00:00:00 2001
+From a6e585ca6ce2c91a6e2d4731f09c48c310c74a32 Mon Sep 17 00:00:00 2001
 From: William Woodall <wjwwood@gmail.com>
 Date: Sat, 10 Nov 2012 23:52:21 -0800
 Subject: [PATCH] Fixes for the rules file
