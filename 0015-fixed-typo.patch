@@ -1,7 +1,7 @@
 From bf43ffc0eebca4042c6765319c4dd211409d7ace Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Mon, 14 Jan 2013 19:08:14 -0800
-Subject: [PATCH 15/17] fixed typo
+Subject: [PATCH 15/18] fixed typo
 
 ---
  cmake/pcl_find_ros.cmake |    2 +-

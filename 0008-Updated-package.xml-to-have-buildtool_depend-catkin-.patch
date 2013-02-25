@@ -1,7 +1,7 @@
 From d96302e5e8f2ccf81fb2c8094a50fb4108faf691 Mon Sep 17 00:00:00 2001
 From: mirzashah <mshah@willowgarage.com>
 Date: Fri, 14 Dec 2012 18:17:09 -0800
-Subject: [PATCH 08/17] Updated package.xml to have
+Subject: [PATCH 08/18] Updated package.xml to have
  <buildtool_depend>catkin</buildtool_depend>
 
 ---

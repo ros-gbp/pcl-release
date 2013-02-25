@@ -1,7 +1,7 @@
 From 2cfe21461ff39ca90dfe91bdf53a8efd85726252 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Mon, 14 Jan 2013 10:41:43 -0800
-Subject: [PATCH 12/17] fixing find_package(ROS...
+Subject: [PATCH 12/18] fixing find_package(ROS...
 
 ---
  cmake/pcl_find_ros.cmake |    8 ++++----

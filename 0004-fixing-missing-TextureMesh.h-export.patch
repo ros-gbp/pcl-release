@@ -1,7 +1,7 @@
 From b7e1ba6393979f4907f5b164b1dd12973a72eeab Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
 Date: Wed, 28 Nov 2012 11:24:20 -0800
-Subject: [PATCH 04/17] fixing missing TextureMesh.h export
+Subject: [PATCH 04/18] fixing missing TextureMesh.h export
 
 ---
  common/CMakeLists.txt |    2 +-

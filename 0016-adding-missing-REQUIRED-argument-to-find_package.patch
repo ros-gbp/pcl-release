@@ -1,7 +1,7 @@
 From 80f7904d327e79e36f33add764e4b8794825cfba Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Mon, 14 Jan 2013 19:13:42 -0800
-Subject: [PATCH 16/17] adding missing REQUIRED argument to find_package
+Subject: [PATCH 16/18] adding missing REQUIRED argument to find_package
 
 ---
  cmake/pcl_find_ros.cmake |    2 +-

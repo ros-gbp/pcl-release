@@ -1,7 +1,7 @@
 From 1923ad6bd1669ae038928d40a078b0d58464d709 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <jkammerl@rbh.willowgarage.com>
 Date: Wed, 19 Dec 2012 19:36:17 -0800
-Subject: [PATCH 11/17] fixed warning: SHOT deprecated
+Subject: [PATCH 11/18] fixed warning: SHOT deprecated
 
 ---
  common/include/pcl/point_types.h |    3 +--
