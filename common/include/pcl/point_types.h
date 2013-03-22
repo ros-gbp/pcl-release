@@ -53,10 +53,7 @@
 
 // We're doing a lot of black magic with Boost here, so disable warnings in Maintainer mode, as we will never
 // be able to fix them anyway
-#if defined _MSC_VER
-  #pragma warning(disable: 4201)
-#endif
-
+#pragma warning(disable: 4201)
 //#pragma warning(push, 1)
 #ifdef BUILD_Maintainer
 #  if defined __GNUC__
@@ -188,7 +185,8 @@ namespace pcl
     * \ingroup common
     * \deprecated USE SHOT352 FOR SHAPE AND SHOT1344 FOR SHAPE+COLOR INSTEAD
     */
-  struct SHOT;
+  struct
+  PCL_DEPRECATED_CLASS (SHOT, "USE SHOT352 FOR SHAPE AND SHOT1344 FOR SHAPE+COLOR INSTEAD");
 
   /** \brief Members: float descriptor[352], rf[9]
     * \ingroup common
@@ -589,9 +587,7 @@ namespace pcl {
   };
 } // namespace pcl
 
-#if defined _MSC_VER
-  #pragma warning(default: 4201)
-#endif
+#pragma warning(default: 4201)
 //#pragma warning(pop)
 #ifdef BUILD_Maintainer
 #  if defined __GNUC__
