@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- *  $Id: multiscale_feature_persistence.h 4864 2012-03-01 01:11:22Z rusu $
+ *  $Id$
  */
 
 #ifndef PCL_MULTISCALE_FEATURE_PERSISTENCE_H_

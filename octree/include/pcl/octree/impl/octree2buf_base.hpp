@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: octree2buf_base.hpp 6119 2012-07-03 18:50:04Z aichim $
+ * $Id$
  */
 
 #ifndef OCTREE_2BUF_BASE_HPP

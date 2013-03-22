@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: test_surface.cpp 6437 2012-07-17 07:00:19Z aichim $
+ * $Id$
  *
  */
 

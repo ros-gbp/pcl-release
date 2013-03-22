@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: filter_indices.h 6144 2012-07-04 22:06:28Z rusu $
+ * $Id$
  *
  */
 

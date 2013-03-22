@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: openni_viewer.cpp 4360 2012-02-10 01:01:11Z rusu $
+ * $Id$
  *
  */
 

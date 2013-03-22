@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: pcl_visualizer.cpp 6014 2012-06-25 21:00:39Z rusu $
+ * $Id$
  *
  */
 

@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: print.cpp 4681 2012-02-22 23:48:44Z mdixon $
+ * $Id$
  *
  */
 #include <pcl/console/print.h>
