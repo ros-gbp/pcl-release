@@ -9,8 +9,8 @@ tracks:
     - git-bloom-generate -y rosdebian --prefix release/:{ros_distro} :{ros_distro}
       -i :{release_inc}
     devel_branch: null
-    name: upstream
-    patches: null
+    name: pcl
+    patches: hydro
     release_inc: -1
     release_tag: pcl-1.6.0
     ros_distro: hydro
