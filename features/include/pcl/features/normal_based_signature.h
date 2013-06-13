@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- *  $Id: normal_based_signature.h 6144 2012-07-04 22:06:28Z rusu $
+ *  $Id$
  */
 
 #ifndef PCL_NORMAL_BASED_SIGNATURE_H_

@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: intensity_spin.h 5026 2012-03-12 02:51:44Z rusu $
+ * $Id$
  *
  */
 #ifndef PCL_INTENSITY_SPIN_H_

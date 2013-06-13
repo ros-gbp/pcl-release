@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: point_cloud.h 6126 2012-07-03 20:19:58Z aichim $
+ * $Id$
  *
  */
 
@@ -649,7 +649,7 @@ namespace pcl
         width (pc.width), height (pc.height), is_dense (pc.is_dense)
       {
         // Copy the obvious
-        properties.acquisition_time   = pc.header.stamp.sec;
+        properties.acquisition_time   = pc.header.stamp;
         properties.sensor_origin      = pc.sensor_origin_;//.head<3> ();
         properties.sensor_orientation = pc.sensor_orientation_;
 

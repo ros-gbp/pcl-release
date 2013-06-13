@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: ia_ransac.hpp 5066 2012-03-14 06:42:21Z rusu $
+ * $Id$
  *
  */
 

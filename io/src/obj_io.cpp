@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: obj_io.cpp 6122 2012-07-03 18:59:43Z aichim $
+ * $Id$
  *
  */
 #include <pcl/io/obj_io.h>

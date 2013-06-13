@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: concave_hull.h 6126 2012-07-03 20:19:58Z aichim $
+ * $Id$
  *
  */
 

@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: spin_image.hpp 4961 2012-03-07 23:44:07Z rusu $
+ * $Id$
  *
  */
 

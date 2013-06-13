@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: register_point_struct.h 6126 2012-07-03 20:19:58Z aichim $
+ * $Id$
  *
  */
 

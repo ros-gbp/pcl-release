@@ -34,7 +34,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: vtk_lib_io.h 6141 2012-07-04 20:28:01Z rusu $
+ * $Id$
  *
  */
 

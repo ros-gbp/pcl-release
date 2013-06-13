@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- *  $Id: statistical_multiscale_interest_region_extraction.h 6144 2012-07-04 22:06:28Z rusu $
+ *  $Id$
  */
 
 #ifndef STATISTICAL_MULTISCALE_INTEREST_REGION_EXTRACTION_H_

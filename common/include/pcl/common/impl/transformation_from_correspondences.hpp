@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: transformation_from_correspondences.hpp 5294 2012-03-25 18:10:50Z rusu $
+ * $Id$
  *
  */
 
