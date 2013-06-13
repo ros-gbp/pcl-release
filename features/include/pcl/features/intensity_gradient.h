@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: intensity_gradient.h 6144 2012-07-04 22:06:28Z rusu $
+ * $Id$
  *
  */
 #ifndef PCL_INTENSITY_GRADIENT_H_

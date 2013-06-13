@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: warp_point_rigid.h 5066 2012-03-14 06:42:21Z rusu $
+ * $Id$
  *
  */
 

@@ -34,7 +34,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: eigen.h 6126 2012-07-03 20:19:58Z aichim $
+ * $Id$
  *
  */
 // The computeRoots function included in this is based on materials

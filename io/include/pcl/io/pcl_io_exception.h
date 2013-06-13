@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: pcl_io_exception.h 4681 2012-02-22 23:48:44Z mdixon $
+ * $Id$
  *
  */
 

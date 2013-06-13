@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: histogram_visualizer.hpp 6161 2012-07-05 17:37:29Z rusu $
+ * $Id$
  *
  */
 

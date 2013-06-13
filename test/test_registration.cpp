@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: test_registration.cpp 5124 2012-03-16 03:09:41Z rusu $
+ * $Id$
  *
  */
 

@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: pyramid_feature_matching.h 4866 2012-03-01 02:45:17Z rusu $
+ * $Id$
  */
 
 #ifndef PCL_PYRAMID_FEATURE_MATCHING_H_

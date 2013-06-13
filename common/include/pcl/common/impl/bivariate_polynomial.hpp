@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: bivariate_polynomial.hpp 4968 2012-03-08 06:39:52Z rusu $
+ * $Id$
  *
  */
 #ifndef BIVARIATE_POLYNOMIAL_HPP
