@@ -1,3 +1,3 @@
 [git-buildpackage]
-upstream-branch=release/pcl/1.6.0
+upstream-branch=@(release_tag)
 upstream-tree=branch

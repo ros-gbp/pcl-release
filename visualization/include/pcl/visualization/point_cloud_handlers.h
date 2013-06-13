@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: point_cloud_handlers.h 5162 2012-03-17 22:30:39Z rusu $
+ * $Id$
  *
  */
 #ifndef PCL_POINT_CLOUD_HANDLERS_H_

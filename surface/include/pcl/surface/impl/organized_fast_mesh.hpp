@@ -34,7 +34,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: organized_fast_mesh.hpp 4917 2012-03-05 17:36:10Z rusu $
+ * $Id$
  *
  */
 

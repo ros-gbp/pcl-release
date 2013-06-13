@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: sac_model_plane.h 4915 2012-03-05 17:31:53Z rusu $
+ * $Id$
  *
  */
 

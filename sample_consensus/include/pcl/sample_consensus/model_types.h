@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: model_types.h 4777 2012-02-27 00:51:27Z rusu $
+ * $Id$
  *
  */
 

@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: reconstruction.hpp 3753 2011-12-31 23:30:57Z rusu $
+ * $Id$
  *
  */
 

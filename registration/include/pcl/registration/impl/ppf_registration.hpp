@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: ppf_registration.hpp 5121 2012-03-16 03:03:47Z rusu $
+ * $Id$
  */
 
 

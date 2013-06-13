@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: histogram_visualizer.cpp 6242 2012-07-08 22:41:55Z rusu $
+ * $Id$
  *
  */
 

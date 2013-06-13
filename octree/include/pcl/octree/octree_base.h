@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: octree_base.h 6201 2012-07-06 11:53:17Z jkammerl $
+ * $Id$
  */
 
 #ifndef OCTREE_TREE_BASE_H

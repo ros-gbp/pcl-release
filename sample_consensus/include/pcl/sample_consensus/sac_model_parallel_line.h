@@ -33,7 +33,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: sac_model_parallel_line.h 4710 2012-02-23 17:51:24Z rusu $
+ * $Id$
  *
  */
 

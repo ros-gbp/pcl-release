@@ -31,7 +31,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * $Id: extract_polygonal_prism_data.h 4869 2012-03-01 03:00:16Z rusu $
+ * $Id$
  *
  */
 
