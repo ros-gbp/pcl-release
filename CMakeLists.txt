@@ -6,10 +6,6 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "build type default to RelWithDebInfo, set to Release to improve performance" FORCE)
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 
-project(pcl)
-find_package(catkin)
-catkin_package()
-
 project(PCL)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 
@@ -90,8 +86,8 @@ if(MSVC)
 endif()
 
 # check for SSE flags
-#include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
-#PCL_CHECK_FOR_SSE()
+include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
+PCL_CHECK_FOR_SSE()
 
 if (__COMPILER_PATHSCALE)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-uninitialized -zerouv -pthread -mp")

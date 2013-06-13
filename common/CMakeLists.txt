@@ -55,7 +55,6 @@ if(build)
         include/pcl/channel_properties.h
         include/pcl/for_each_type.h
         include/pcl/pcl_tests.h
-        include/pcl/TextureMesh.h
         )
         
     if(NOT USE_ROS)
@@ -64,6 +63,7 @@ if(build)
           include/pcl/PolygonMesh.h
           include/pcl/Vertices.h
           include/pcl/PointIndices.h
+          include/pcl/TextureMesh.h
           )
 
         set(sensor_msg_incs 
