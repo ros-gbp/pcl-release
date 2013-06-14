@@ -1,7 +1,7 @@
-From 191a936db49f7b7bd7ed3b3be7075ea7e6f475bc Mon Sep 17 00:00:00 2001
+From fe89b02f95e1894cd73a7b9e3f8c3de0ea3d8b29 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Fri, 22 Mar 2013 01:20:36 -0700
-Subject: [PATCH] patches for upstream from groovy-patches
+Subject: [PATCH 1/2] patches for upstream from groovy-patches
 
 ---
  CMakeLists.txt                           |    4 ++

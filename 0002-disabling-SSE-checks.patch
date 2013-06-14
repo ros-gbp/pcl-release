@@ -1,0 +1,27 @@
+From f2980d3de19d8d77616ea08826cfd0999588d563 Mon Sep 17 00:00:00 2001
+From: Julius Kammerl <julius@kammerl.de>
+Date: Fri, 7 Jun 2013 19:23:36 -0700
+Subject: [PATCH 2/2] disabling SSE checks
+
+---
+ CMakeLists.txt |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3b77bf5..dcec7b6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -90,8 +90,8 @@ if(MSVC)
+ endif()
+ 
+ # check for SSE flags
+-include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
+-PCL_CHECK_FOR_SSE()
++#include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
++#PCL_CHECK_FOR_SSE()
+ 
+ if (__COMPILER_PATHSCALE)
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-uninitialized -zerouv -pthread -mp")
+-- 
+1.7.9.5
+
