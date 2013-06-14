@@ -90,8 +90,8 @@ if(MSVC)
 endif()
 
 # check for SSE flags
-include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
-PCL_CHECK_FOR_SSE()
+#include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
+#PCL_CHECK_FOR_SSE()
 
 if (__COMPILER_PATHSCALE)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-uninitialized -zerouv -pthread -mp")
