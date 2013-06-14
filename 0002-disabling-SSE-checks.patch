@@ -1,4 +1,4 @@
-From f2980d3de19d8d77616ea08826cfd0999588d563 Mon Sep 17 00:00:00 2001
+From 2320017135387384a2a49a3f0cc4729c6f40b715 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Fri, 7 Jun 2013 19:23:36 -0700
 Subject: [PATCH 2/2] disabling SSE checks

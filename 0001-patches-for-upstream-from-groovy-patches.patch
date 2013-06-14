@@ -1,4 +1,4 @@
-From fe89b02f95e1894cd73a7b9e3f8c3de0ea3d8b29 Mon Sep 17 00:00:00 2001
+From 19b0c71a065474cdf4f1000b5fd4bb029df0e94a Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Fri, 22 Mar 2013 01:20:36 -0700
 Subject: [PATCH 1/2] patches for upstream from groovy-patches
