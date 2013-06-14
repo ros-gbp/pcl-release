@@ -2,9 +2,9 @@
 
 # A macro for linking the ROS libraries.  (Might not be necessary... todo: add this logic at the find_package(ROS))
 macro(link_ros_libs _target)
-  if(catkin_FOUND)
+  if(ROS_FOUND)
     # if find_package(ROS ...) found the required libraries, link against those
-    target_link_libraries(${_target} ${catkin_LIBRARIES})
+    target_link_libraries(${_target} ${ROS_LIBRARIES})
   elseif(USE_ROS)
     # otherwise, we have to specify them here
     target_link_libraries(${_target} sensor_msgs roscpp_serialization rosconsole rostime)
@@ -23,16 +23,16 @@ macro(get_ros_inc_path _dest _pkg)
 endmacro(get_ros_inc_path)
 
 #todo: do we really need the next two lines? 
-#set(ROS_ROOT $ENV{ROS_ROOT})
-#if(ROS_ROOT)
-    option(USE_ROS "Integrate with ROS rather than using native files" ON)
+set(ROS_ROOT $ENV{ROS_ROOT})
+if(ROS_ROOT)
+    option(USE_ROS "Integrate with ROS rather than using native files" OFF)
     message(STATUS "Found ROS; USE_ROS is ${USE_ROS}")
     if(USE_ROS)
         # Search for ROS
-        find_package(catkin REQUIRED COMPONENTS roscpp_serialization std_msgs sensor_msgs rostime)
-	if (catkin_FOUND)
+        find_package(ROS COMPONENTS catkin roscpp_serialization std_msgs sensor_msgs rostime)
+	if (ROS_FOUND)
 	  # if find_package(ROS ...) found the required components, add their include directories
-          include_directories(${catkin_INCLUDE_DIRS})
+          include_directories(${ROS_INCLUDE_DIRS})
 	else()
           # otherwise, search for these particular packages the old hacky way	  
           set(_ros_pkgs std_msgs sensor_msgs roscpp_serialization cpp_common rostime
@@ -64,5 +64,5 @@ endmacro(get_ros_inc_path)
         SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     endif(USE_ROS)
-#endif(ROS_ROOT)
+endif(ROS_ROOT)
 
