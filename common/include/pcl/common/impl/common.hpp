@@ -14,7 +14,7 @@
  *     copyright notice, this list of conditions and the following
  *     disclaimer in the documentation and/or other materials provided
  *     with the distribution.
- *   * Neither the name of Willow Garage, Inc. nor the names of its
+ *   * Neither the name of the copyright holder(s) nor the names of its
  *     contributors may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
  *
@@ -39,6 +39,7 @@
 #define PCL_COMMON_IMPL_H_
 
 #include <pcl/point_types.h>
+#include <pcl/common/common.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 inline double
@@ -86,7 +87,7 @@ pcl::getPointsInBox (const pcl::PointCloud<PointT> &cloud,
         continue;
       if (cloud.points[i].x > max_pt[0] || cloud.points[i].y > max_pt[1] || cloud.points[i].z > max_pt[2])
         continue;
-      indices[l++] = i;
+      indices[l++] = int (i);
     }
   }
   // NaN or Inf values could exist => check for them
@@ -104,7 +105,7 @@ pcl::getPointsInBox (const pcl::PointCloud<PointT> &cloud,
         continue;
       if (cloud.points[i].x > max_pt[0] || cloud.points[i].y > max_pt[1] || cloud.points[i].z > max_pt[2])
         continue;
-      indices[l++] = i;
+      indices[l++] = int (i);
     }
   }
   indices.resize (l);
@@ -115,7 +116,7 @@ template<typename PointT> inline void
 pcl::getMaxDistance (const pcl::PointCloud<PointT> &cloud, const Eigen::Vector4f &pivot_pt, Eigen::Vector4f &max_pt)
 {
   float max_dist = -FLT_MAX;
-  float max_idx = -1;
+  int max_idx = -1;
   float dist;
 
   // If the data is dense, we don't need to check for NaN
@@ -127,7 +128,7 @@ pcl::getMaxDistance (const pcl::PointCloud<PointT> &cloud, const Eigen::Vector4f
       dist = (pivot_pt - pt).norm ();
       if (dist > max_dist)
       {
-        max_idx = i;
+        max_idx = int (i);
         max_dist = dist;
       }
     }
@@ -144,13 +145,16 @@ pcl::getMaxDistance (const pcl::PointCloud<PointT> &cloud, const Eigen::Vector4f
       dist = (pivot_pt - pt).norm ();
       if (dist > max_dist)
       {
-        max_idx = i;
+        max_idx = int (i);
         max_dist = dist;
       }
     }
   }
 
-  max_pt = cloud.points[max_idx].getVector4fMap ();
+  if(max_idx != -1)
+    max_pt = cloud.points[max_idx].getVector4fMap ();
+  else
+    max_pt = Eigen::Vector4f(std::numeric_limits<float>::quiet_NaN(),std::numeric_limits<float>::quiet_NaN(),std::numeric_limits<float>::quiet_NaN(),std::numeric_limits<float>::quiet_NaN());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,7 +201,10 @@ pcl::getMaxDistance (const pcl::PointCloud<PointT> &cloud, const std::vector<int
     }
   }
 
-  max_pt = cloud.points[indices[max_idx]].getVector4fMap ();
+  if(max_idx != -1)
+    max_pt = cloud.points[max_idx].getVector4fMap ();
+  else
+    max_pt = Eigen::Vector4f(std::numeric_limits<float>::quiet_NaN(),std::numeric_limits<float>::quiet_NaN(),std::numeric_limits<float>::quiet_NaN(),std::numeric_limits<float>::quiet_NaN());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

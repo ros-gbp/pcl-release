@@ -43,6 +43,7 @@
 
 #include <pcl/features/esf.h>
 #include <pcl/common/common.h>
+#include <pcl/common/distances.h>
 #include <pcl/common/transforms.h>
 #include <vector>
 
@@ -189,7 +190,7 @@ pcl::ESFEstimation<PointInT, PointOutT>::computeESF (
     }
 
     // D3 ( herons formula )
-    d3v.push_back (sqrt (sqrt (s * (s-a) * (s-b) * (s-c))));
+    d3v.push_back (sqrtf (sqrtf (s * (s-a) * (s-b) * (s-c))));
     if (vxlcnt_sum <= 21)
     {
       wt_d3.push_back (0);
