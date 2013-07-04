@@ -32,8 +32,9 @@ tracks:
     name: pcl
     patches: hydro
     release_inc: '1'
-    release_tag: pcl-1.6.0
+    release_repo_url: null
+    release_tag: pcl-1.7.0rc1
     ros_distro: hydro
     vcs_type: git
-    vcs_uri: git@github.com:PointCloudLibrary/pcl.git
-    version: 1.6.0
+    vcs_uri: https://github.com/PointCloudLibrary/pcl.git
+    version: 1.7.0
