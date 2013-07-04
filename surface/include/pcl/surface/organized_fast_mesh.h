@@ -51,6 +51,13 @@ namespace pcl
     * clouds. Neighboring points (pixels in image space) are connected to
     * construct a triangular mesh.
     *
+    * \note If you use this code in any academic work, please cite:
+    *   D. Holz and S. Behnke.
+    *   Fast Range Image Segmentation and Smoothing using Approximate Surface Reconstruction and Region Growing.
+    *   In Proceedings of the 12th International Conference on Intelligent Autonomous Systems (IAS),
+    *   Jeju Island, Korea, June 26-29 2012.
+    *   <a href="http://purl.org/holz/papers/holz_2012_ias.pdf">http://purl.org/holz/papers/holz_2012_ias.pdf</a>
+    * 
     * \author Dirk Holz, Radu B. Rusu
     * \ingroup surface
     */
@@ -58,6 +65,9 @@ namespace pcl
   class OrganizedFastMesh : public MeshConstruction<PointInT>
   {
     public:
+      typedef boost::shared_ptr<OrganizedFastMesh<PointInT> > Ptr;
+      typedef boost::shared_ptr<const OrganizedFastMesh<PointInT> > ConstPtr;
+
       using MeshConstruction<PointInT>::input_;
       using MeshConstruction<PointInT>::check_tree_;
 
@@ -85,7 +95,7 @@ namespace pcl
       };
 
       /** \brief Destructor. */
-      ~OrganizedFastMesh () {};
+      virtual ~OrganizedFastMesh () {};
 
       /** \brief Set a maximum edge length. TODO: Implement!
         * \param[in] max_edge_length the maximum edge length
@@ -320,5 +330,9 @@ namespace pcl
       makeAdaptiveCutMesh (std::vector<pcl::Vertices>& polygons);
   };
 }
+
+#ifdef PCL_NO_PRECOMPILE
+#include <pcl/surface/impl/organized_fast_mesh.hpp>
+#endif
 
 #endif  // PCL_SURFACE_ORGANIZED_FAST_MESH_H_

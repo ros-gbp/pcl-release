@@ -1,0 +1,10 @@
+language: cpp
+compiler:
+  - gcc
+before_install:
+  - sudo add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl -y
+  - sudo apt-get update -d
+  - sudo apt-get install cmake libvtk5-qt4-dev libflann-dev libeigen3-dev libopenni-dev libqhull-dev libboost-filesystem-dev libboost-iostreams-dev libboost-thread-dev
+script: 
+  - mkdir build && cd build
+  - cmake -DCMAKE_C_FLAGS="-Wall -Wextra -Wabi -Wconversion -O2" -DCMAKE_CXX_FLAGS="-Wall -Wextra -Wabi -Wconversion -O2" -DPCL_ONLY_CORE_POINT_TYPES=ON .. && make -j2 && make test
