@@ -334,6 +334,10 @@ foreach(subdir ${PCL_MODULES_DIRS})
   add_subdirectory(${PCL_SOURCE_DIR}/${subdir})  
 endforeach(subdir)
 
+
+### ---[ Install package.xml for ROS integration
+install(FILES package.xml DESTINATION share/pcl)
+
 ### ---[ Documentation
 add_subdirectory(doc)
 
