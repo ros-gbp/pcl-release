@@ -1,10 +1,10 @@
-From 2320017135387384a2a49a3f0cc4729c6f40b715 Mon Sep 17 00:00:00 2001
+From d0dbf9feac17ab83bdc8fc7928f95d058cfb8f49 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Fri, 7 Jun 2013 19:23:36 -0700
 Subject: [PATCH 2/2] disabling SSE checks
 
 ---
- CMakeLists.txt |    4 ++--
+ CMakeLists.txt | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
@@ -23,5 +23,5 @@ index 3b77bf5..dcec7b6 100644
  if (__COMPILER_PATHSCALE)
    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-uninitialized -zerouv -pthread -mp")
 -- 
-1.7.9.5
+1.7.12.4 (Apple Git-37)
 

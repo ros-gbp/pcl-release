@@ -1,22 +1,22 @@
-From 19b0c71a065474cdf4f1000b5fd4bb029df0e94a Mon Sep 17 00:00:00 2001
+From 8679e35536861e611a4b5f532c24c9a2f6216253 Mon Sep 17 00:00:00 2001
 From: Julius Kammerl <julius@kammerl.de>
 Date: Fri, 22 Mar 2013 01:20:36 -0700
 Subject: [PATCH 1/2] patches for upstream from groovy-patches
 
 ---
- CMakeLists.txt                           |    4 ++
- cmake/pcl_find_ros.cmake                 |   18 +++---
- common/CMakeLists.txt                    |    2 +-
- common/include/pcl/ModelCoefficients.h   |   46 --------------
- common/include/pcl/PointIndices.h        |   44 -------------
- common/include/pcl/PolygonMesh.h         |   53 ----------------
- common/include/pcl/Vertices.h            |   42 -------------
- common/include/pcl/point_cloud.h         |    2 +-
- common/include/pcl/point_types.h         |   12 ++--
- common/include/sensor_msgs/Image.h       |   61 ------------------
- common/include/sensor_msgs/PointCloud2.h |  101 ------------------------------
- common/include/sensor_msgs/PointField.h  |   54 ----------------
- common/include/std_msgs/Header.h         |   39 ------------
+ CMakeLists.txt                           |   4 ++
+ cmake/pcl_find_ros.cmake                 |  18 +++---
+ common/CMakeLists.txt                    |   2 +-
+ common/include/pcl/ModelCoefficients.h   |  46 --------------
+ common/include/pcl/PointIndices.h        |  44 --------------
+ common/include/pcl/PolygonMesh.h         |  53 ----------------
+ common/include/pcl/Vertices.h            |  42 -------------
+ common/include/pcl/point_cloud.h         |   2 +-
+ common/include/pcl/point_types.h         |  12 ++--
+ common/include/sensor_msgs/Image.h       |  61 -------------------
+ common/include/sensor_msgs/PointCloud2.h | 101 -------------------------------
+ common/include/sensor_msgs/PointField.h  |  54 -----------------
+ common/include/std_msgs/Header.h         |  39 ------------
  13 files changed, 23 insertions(+), 455 deletions(-)
  delete mode 100644 common/include/pcl/ModelCoefficients.h
  delete mode 100644 common/include/pcl/PointIndices.h
@@ -647,5 +647,5 @@ index 19b18af..0000000
 -#endif // PCL_ROSLIB_MESSAGE_HEADER_H
 -
 -- 
-1.7.9.5
+1.7.12.4 (Apple Git-37)
 
