@@ -1,0 +1,27 @@
+From 1e71c7607ce0ae8bac35a0ae85cfd95bf6426442 Mon Sep 17 00:00:00 2001
+From: William Woodall <william@osrfoundation.org>
+Date: Thu, 4 Jul 2013 14:59:41 -0700
+Subject: [PATCH 2/2] Install package.xml
+
+---
+ CMakeLists.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3ee7cce..11d6671 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -334,6 +334,10 @@ foreach(subdir ${PCL_MODULES_DIRS})
+   add_subdirectory(${PCL_SOURCE_DIR}/${subdir})  
+ endforeach(subdir)
+ 
++
++### ---[ Install package.xml for ROS integration
++install(FILES package.xml DESTINATION share/pcl)
++
+ ### ---[ Documentation
+ add_subdirectory(doc)
+ 
+-- 
+1.7.12.4 (Apple Git-37)
+

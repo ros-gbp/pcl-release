@@ -1,0 +1,31 @@
+From 2d9834860f514fa818a7c1f3c314a57913d8e2dc Mon Sep 17 00:00:00 2001
+From: William Woodall <william@osrfoundation.org>
+Date: Thu, 4 Jul 2013 14:59:25 -0700
+Subject: [PATCH 1/2] Disable SSE checks
+
+---
+ CMakeLists.txt | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bdc8d12..3ee7cce 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -69,10 +69,10 @@ if(CMAKE_TIMING_VERBOSE AND UNIX)
+ endif(CMAKE_TIMING_VERBOSE AND UNIX)
+ 
+ # check for SSE flags
+-include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
+-if (PCL_ENABLE_SSE)
+-  PCL_CHECK_FOR_SSE()
+-endif (PCL_ENABLE_SSE)
++#include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
++#if (PCL_ENABLE_SSE)
++#  PCL_CHECK_FOR_SSE()
++#endif (PCL_ENABLE_SSE)
+ 
+ # ---[ Unix/Darwin/Windows specific flags
+ if(CMAKE_COMPILER_IS_GNUCXX)
+-- 
+1.7.12.4 (Apple Git-37)
+
