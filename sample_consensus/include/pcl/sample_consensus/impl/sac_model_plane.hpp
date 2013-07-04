@@ -1,7 +1,10 @@
 /*
  * Software License Agreement (BSD License)
  *
+ *  Point Cloud Library (PCL) - www.pointclouds.org
  *  Copyright (c) 2009, Willow Garage, Inc.
+ *  Copyright (c) 2012-, Open Perception, Inc.
+ *
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -14,7 +17,7 @@
  *     copyright notice, this list of conditions and the following
  *     disclaimer in the documentation and/or other materials provided
  *     with the distribution.
- *   * Neither the name of Willow Garage, Inc. nor the names of its
+ *   * Neither the name of the copyright holder(s) nor the names of its
  *     contributors may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
  *
@@ -42,6 +45,7 @@
 #include <pcl/common/centroid.h>
 #include <pcl/common/eigen.h>
 #include <pcl/common/concatenate.h>
+#include <pcl/point_types.h>
 
 //////////////////////////////////////////////////////////////////////////
 template <typename PointT> bool
@@ -148,6 +152,7 @@ pcl::SampleConsensusModelPlane<PointT>::selectWithinDistance (
 
   int nr_p = 0;
   inliers.resize (indices_->size ());
+  error_sqr_dists_.resize (indices_->size ());
 
   // Iterate through the 3d points and calculate the distances from them to the plane
   for (size_t i = 0; i < indices_->size (); ++i)
@@ -158,14 +163,19 @@ pcl::SampleConsensusModelPlane<PointT>::selectWithinDistance (
                         input_->points[(*indices_)[i]].y,
                         input_->points[(*indices_)[i]].z,
                         1);
-    if (fabs (model_coefficients.dot (pt)) < threshold)
+    
+    float distance = fabsf (model_coefficients.dot (pt));
+    
+    if (distance < threshold)
     {
       // Returns the indices of the points whose distances are smaller than the threshold
       inliers[nr_p] = (*indices_)[i];
-      nr_p++;
+      error_sqr_dists_[nr_p] = static_cast<double> (distance);
+      ++nr_p;
     }
   }
   inliers.resize (nr_p);
+  error_sqr_dists_.resize (nr_p);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -291,7 +301,7 @@ pcl::SampleConsensusModelPlane<PointT>::projectPoints (
       float distance_to_plane = tmp_mc.dot (p);
 
       pcl::Vector4fMap pp = projected_points.points[inliers[i]].getVector4fMap ();
-      pp = p - mc * distance_to_plane;        // mc[3] = 0, therefore the 3rd coordinate is safe
+      pp.matrix () = p - mc * distance_to_plane;        // mc[3] = 0, therefore the 3rd coordinate is safe
     }
   }
   else
@@ -319,7 +329,7 @@ pcl::SampleConsensusModelPlane<PointT>::projectPoints (
       float distance_to_plane = tmp_mc.dot (p);
 
       pcl::Vector4fMap pp = projected_points.points[i].getVector4fMap ();
-      pp = p - mc * distance_to_plane;        // mc[3] = 0, therefore the 3rd coordinate is safe
+      pp.matrix () = p - mc * distance_to_plane;        // mc[3] = 0, therefore the 3rd coordinate is safe
     }
   }
 }
