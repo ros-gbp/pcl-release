@@ -38,9 +38,8 @@
 #ifndef PCL_SURFACE_GRID_PROJECTION_H_
 #define PCL_SURFACE_GRID_PROJECTION_H_
 
+#include <pcl/surface/boost.h>
 #include <pcl/surface/reconstruction.h>
-#include <boost/dynamic_bitset/dynamic_bitset.hpp>
-#include <boost/unordered_map.hpp>
 
 namespace pcl
 {
@@ -73,6 +72,9 @@ namespace pcl
   class GridProjection : public SurfaceReconstruction<PointNT>
   {
     public:
+      typedef boost::shared_ptr<GridProjection<PointNT> > Ptr;
+      typedef boost::shared_ptr<const GridProjection<PointNT> > ConstPtr;
+
       using SurfaceReconstruction<PointNT>::input_;
       using SurfaceReconstruction<PointNT>::tree_;
 
