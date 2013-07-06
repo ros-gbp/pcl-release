@@ -1,4 +1,4 @@
-From 90ea1e5323d53adee5904c1a8fc55e35b3aeb9c9 Mon Sep 17 00:00:00 2001
+From ad500822b1087b92338897ddd32d4cd9e247f8cc Mon Sep 17 00:00:00 2001
 From: William Woodall <william@osrfoundation.org>
 Date: Fri, 5 Jul 2013 17:56:43 -0700
 Subject: [PATCH 3/3] Importing upstream fix
