@@ -14,6 +14,8 @@
   <url type="bugtracker">http://dev.pointclouds.org</url>
   <url type="repository">https://github.com/PointCloudLibrary/pcl</url>
 
+  <buildtool_depend>cmake</buildtool_depend>
+
   <build_depend>boost</build_depend>
   <build_depend>eigen</build_depend>
   <build_depend>libflann-dev</build_depend>
