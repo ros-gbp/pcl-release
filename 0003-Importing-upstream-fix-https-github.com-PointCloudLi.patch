@@ -1,0 +1,35 @@
+From 90ea1e5323d53adee5904c1a8fc55e35b3aeb9c9 Mon Sep 17 00:00:00 2001
+From: William Woodall <william@osrfoundation.org>
+Date: Fri, 5 Jul 2013 17:56:43 -0700
+Subject: [PATCH 3/3] Importing upstream fix
+ https://github.com/PointCloudLibrary/pcl/pull/165
+
+---
+ common/CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/common/CMakeLists.txt b/common/CMakeLists.txt
+index f492e73..99c5d5e 100644
+--- a/common/CMakeLists.txt
++++ b/common/CMakeLists.txt
+@@ -67,6 +67,8 @@ if(build)
+         include/pcl/PolygonMesh.h
+         include/pcl/Vertices.h
+         include/pcl/PointIndices.h
++        include/pcl/register_point_struct.h
++        include/pcl/conversions.h
+         )
+ 
+     set(common_incs 
+@@ -103,8 +105,6 @@ if(build)
+         include/pcl/common/random.h
+         include/pcl/common/generate.h
+         include/pcl/common/projection_matrix.h
+-        include/pcl/register_point_struct.h
+-        include/pcl/conversions.h
+         )
+ 
+     set(common_incs_impl
+-- 
+1.7.12.4 (Apple Git-37)
+
