@@ -16,8 +16,7 @@
 
   <build_depend>boost</build_depend>
   <build_depend>eigen</build_depend>
-  <build_depend>flann</build_depend>
-  <build_depend>libmysqlclient-dev</build_depend>
+  <build_depend>libflann-dev</build_depend>
   <build_depend>libqhull</build_depend>
   <build_depend>libusb-1.0-dev</build_depend>
   <build_depend>libvtk</build_depend>
@@ -26,8 +25,7 @@
   <run_depend>boost</run_depend>
   <run_depend>catkin</run_depend>
   <run_depend>eigen</run_depend>
-  <run_depend>flann</run_depend>
-  <run_depend>libmysqlclient-dev</run_depend>
+  <run_depend>libflann</run_depend>
   <run_depend>libqhull</run_depend>
   <run_depend>libusb-1.0-dev</run_depend>
   <run_depend>libvtk</run_depend>
