@@ -1,3 +1,22 @@
+## pcl - 1.7.0-7
+
+User `william@dosa` released the packages in the `pcl` repository by running `/usr/local/bin/bloom-release -r hydro -t hydro pcl` on `Wed, 10 Jul 2013 21:15:15 -0000`
+
+The `pcl` package was released.
+
+Version of package(s) in repository `pcl`:
+- rosdistro version: `1.7.0-6`
+- old version: `1.7.0-6`
+- new version: `1.7.0-7`
+
+Versions of tools used:
+- bloom version: `0.4.2`
+- catkin_pkg version: `0.1.16`
+- rosdep version: `0.10.19`
+- rosdistro version: `0.2.9`
+- vcstools version: `0.1.31`
+
+
 ## pcl - 1.7.0-6
 
 User `william@dosa` released the packages in the `pcl` repository by running `/usr/local/bin/bloom-release -r hydro -t hydro pcl` on `Mon, 08 Jul 2013 20:12:43 -0000`
