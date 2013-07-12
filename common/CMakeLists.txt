@@ -59,6 +59,16 @@ if(build)
         include/pcl/pcl_tests.h
         include/pcl/cloud_iterator.h
         include/pcl/TextureMesh.h
+        include/pcl/PCLPointField.h
+        include/pcl/PCLPointCloud2.h
+        include/pcl/PCLImage.h
+        include/pcl/PCLHeader.h
+        include/pcl/ModelCoefficients.h
+        include/pcl/PolygonMesh.h
+        include/pcl/Vertices.h
+        include/pcl/PointIndices.h
+        include/pcl/register_point_struct.h
+        include/pcl/conversions.h
         include/pcl/sse.h
         )
 
