@@ -1,4 +1,4 @@
-From d5ff818e92969dfc6cd526bf087501e8671cb24c Mon Sep 17 00:00:00 2001
+From 7ef13d31325480d4b1937679e08838270b400d1c Mon Sep 17 00:00:00 2001
 From: William Woodall <william@osrfoundation.org>
 Date: Thu, 4 Jul 2013 14:59:41 -0700
 Subject: [PATCH 2/3] Install package.xml
