@@ -1,7 +1,7 @@
-From 7ef13d31325480d4b1937679e08838270b400d1c Mon Sep 17 00:00:00 2001
+From ef86857fee04b5e521cbab55f40204a8e89d72a7 Mon Sep 17 00:00:00 2001
 From: William Woodall <william@osrfoundation.org>
 Date: Thu, 4 Jul 2013 14:59:41 -0700
-Subject: [PATCH 2/3] Install package.xml
+Subject: [PATCH 2/4] Install package.xml
 
 ---
  CMakeLists.txt | 4 ++++

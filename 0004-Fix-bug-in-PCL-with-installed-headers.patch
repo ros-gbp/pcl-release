@@ -1,0 +1,33 @@
+From 39391dee3c00f1f85d1d2663b4fc6d476f88f896 Mon Sep 17 00:00:00 2001
+From: William Woodall <wjwwood@gmail.com>
+Date: Fri, 12 Jul 2013 14:54:33 -0700
+Subject: [PATCH 4/4] Fix bug in PCL with installed headers
+
+---
+ common/CMakeLists.txt | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/common/CMakeLists.txt b/common/CMakeLists.txt
+index 21e3c05..2a40a18 100644
+--- a/common/CMakeLists.txt
++++ b/common/CMakeLists.txt
+@@ -59,6 +59,16 @@ if(build)
+         include/pcl/pcl_tests.h
+         include/pcl/cloud_iterator.h
+         include/pcl/TextureMesh.h
++        include/pcl/PCLPointField.h
++        include/pcl/PCLPointCloud2.h
++        include/pcl/PCLImage.h
++        include/pcl/PCLHeader.h
++        include/pcl/ModelCoefficients.h
++        include/pcl/PolygonMesh.h
++        include/pcl/Vertices.h
++        include/pcl/PointIndices.h
++        include/pcl/register_point_struct.h
++        include/pcl/conversions.h
+         include/pcl/sse.h
+         )
+ 
+-- 
+1.7.12.4 (Apple Git-37)
+
