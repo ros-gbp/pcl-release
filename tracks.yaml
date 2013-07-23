@@ -31,7 +31,7 @@ tracks:
     last_version: 1.7.0
     name: pcl
     patches: hydro
-    release_inc: '10'
+    release_inc: '11'
     release_repo_url: null
     release_tag: pcl-:{version}
     ros_distro: hydro
