@@ -1,4 +1,4 @@
-From 4c76f2220817893031029d2a0ef35fb9ba83f699 Mon Sep 17 00:00:00 2001
+From 221547a907ef8e8986697ab3f969da448aa2cb8b Mon Sep 17 00:00:00 2001
 From: William Woodall <william@osrfoundation.org>
 Date: Thu, 4 Jul 2013 14:59:25 -0700
 Subject: [PATCH 1/4] Disable SSE checks
