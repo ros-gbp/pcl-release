@@ -67,9 +67,17 @@ if(build)
         include/pcl/PolygonMesh.h
         include/pcl/Vertices.h
         include/pcl/PointIndices.h
+        include/pcl/sse.h
+        include/pcl/PCLPointField.h
+        include/pcl/PCLPointCloud2.h
+        include/pcl/PCLImage.h
+        include/pcl/PCLHeader.h
+        include/pcl/ModelCoefficients.h
+        include/pcl/PolygonMesh.h
+        include/pcl/Vertices.h
+        include/pcl/PointIndices.h
         include/pcl/register_point_struct.h
         include/pcl/conversions.h
-        include/pcl/sse.h
         )
 
     set(common_incs 
@@ -106,6 +114,8 @@ if(build)
         include/pcl/common/random.h
         include/pcl/common/generate.h
         include/pcl/common/projection_matrix.h
+        include/pcl/register_point_struct.h
+        include/pcl/conversions.h
         )
 
     set(common_incs_impl

@@ -69,10 +69,10 @@ if(CMAKE_TIMING_VERBOSE AND UNIX)
 endif(CMAKE_TIMING_VERBOSE AND UNIX)
 
 # check for SSE flags
-#include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
-#if (PCL_ENABLE_SSE)
-#  PCL_CHECK_FOR_SSE()
-#endif (PCL_ENABLE_SSE)
+include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
+if (PCL_ENABLE_SSE)
+  PCL_CHECK_FOR_SSE()
+endif (PCL_ENABLE_SSE)
 
 # ---[ Unix/Darwin/Windows specific flags
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -109,7 +109,7 @@ endif()
 
 if(MSVC)
   SET(CMAKE_COMPILER_IS_MSVC 1)
-  add_definitions ("-DBOOST_ALL_NO_LIB -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS -DNOMINMAX")
+  add_definitions ("-DBOOST_ALL_NO_LIB -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS -DNOMINMAX /bigobj")
   if("${CMAKE_CXX_FLAGS}" STREQUAL "")
     SET(CMAKE_CXX_FLAGS "/bigobj /EHsc /fp:precise /wd4800 /wd4521 /wd4251 /wd4275 /wd4305 /wd4355 ${SSE_FLAGS}")
 
