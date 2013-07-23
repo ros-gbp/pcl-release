@@ -1,14 +1,14 @@
-From a3c274fb28e60a5085c819f02d297769ea0c974b Mon Sep 17 00:00:00 2001
+From 913fc72d09038f6e55bde80121415139dedfc1fb Mon Sep 17 00:00:00 2001
 From: William Woodall <william@osrfoundation.org>
 Date: Thu, 4 Jul 2013 14:59:41 -0700
-Subject: [PATCH 2/4] Install package.xml
+Subject: [PATCH 1/2] Install package.xml
 
 ---
  CMakeLists.txt | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 3ee7cce..11d6671 100644
+index db3d75c..263271e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -334,6 +334,10 @@ foreach(subdir ${PCL_MODULES_DIRS})

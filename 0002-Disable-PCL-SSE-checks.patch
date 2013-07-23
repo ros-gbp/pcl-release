@@ -1,14 +1,14 @@
-From 221547a907ef8e8986697ab3f969da448aa2cb8b Mon Sep 17 00:00:00 2001
-From: William Woodall <william@osrfoundation.org>
-Date: Thu, 4 Jul 2013 14:59:25 -0700
-Subject: [PATCH 1/4] Disable SSE checks
+From 69b23d92f4431a8d56062dd62c416e9392d4ee74 Mon Sep 17 00:00:00 2001
+From: William Woodall <wjwwood@gmail.com>
+Date: Tue, 23 Jul 2013 15:38:15 -0700
+Subject: [PATCH 2/2] Disable PCL SSE checks
 
 ---
  CMakeLists.txt | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index bdc8d12..3ee7cce 100644
+index 263271e..7a8ed0c 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -69,10 +69,10 @@ if(CMAKE_TIMING_VERBOSE AND UNIX)
@@ -19,10 +19,10 @@ index bdc8d12..3ee7cce 100644
 -if (PCL_ENABLE_SSE)
 -  PCL_CHECK_FOR_SSE()
 -endif (PCL_ENABLE_SSE)
-+#include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
-+#if (PCL_ENABLE_SSE)
-+#  PCL_CHECK_FOR_SSE()
-+#endif (PCL_ENABLE_SSE)
++# include(${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake)
++# if (PCL_ENABLE_SSE)
++#   PCL_CHECK_FOR_SSE()
++# endif (PCL_ENABLE_SSE)
  
  # ---[ Unix/Darwin/Windows specific flags
  if(CMAKE_COMPILER_IS_GNUCXX)
